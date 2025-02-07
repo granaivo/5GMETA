@@ -1,0 +1,77 @@
+{
+    "header": {
+        "protocolVersion": 2,
+        "messageID": 2,
+        "stationID": 3907
+    },
+    "cam": {
+        "generationDeltaTime": "1",
+        "camParameters": {
+            "basicContainer": {
+                "stationType": 5,
+                "referencePosition": {
+                    "latitude": 446542320,
+                    "longitude": 109333114,
+                    "positionConfidenceEllipse": {
+                        "semiMajorConfidence": 0,
+                        "semiMinorConfidence": 0,
+                        "semiMajorOrientation": 0
+                    },
+                    "altitude": {
+                        "altitudeValue": 7796,
+                        "altitudeConfidence": "unavailable"
+                    }
+                }
+            },
+            "highFrequencyContainer": {
+                "basicVehicleContainerHighFrequency": {
+                    "heading": {
+                        "headingValue": 2870,
+                        "headingConfidence": 127
+                    },
+                    "speed": {
+                        "speedValue": 440,
+                        "speedConfidence": 127
+                    },
+                    "driveDirection": "unavailable",
+                    "vehicleLength": {
+                        "vehicleLengthValue": 42,
+                        "vehicleLengthConfidenceIndication": "unavailable"
+                    },
+                    "vehicleWidth": 20,
+                    "longitudinalAcceleration": {
+                        "longitudinalAccelerationValue": 0,
+                        "longitudinalAccelerationConfidence": 102
+                    },
+                    "curvature": {
+                        "curvatureValue": 359,
+                        "curvatureConfidence": "unavailable"
+                    },
+                    "curvatureCalculationMode": "yawRateUsed",
+                    "yawRate": {
+                        "yawRateValue": 1,
+                        "yawRateConfidence": "unavailable"
+                    },
+                    "accelerationControl": "00",
+                    "lanePosition": -1
+                }
+            },
+            "lowFrequencyContainer": {
+                "basicVehicleContainerLowFrequency": {
+                    "vehicleRole": "default",
+                    "exteriorLights": "00",
+                    "pathHistory": [
+                        {
+                            "pathPosition": {
+                                "deltaLatitude": -280,
+                                "deltaLongitude": 1140,
+                                "deltaAltitude": 250
+                            },
+                            "pathDeltaTime": 22393
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+{
+	"header": {
+		"protocolVersion": 2,
+		"messageID": 16,
+		"stationID": 202
+	},
+	"pam": {
+		"timestamp": 10,
+		"parking": {
+			"id": 202,
+			"capacity": 60,
+			"occupancy": 5
+		}
+	}
+}

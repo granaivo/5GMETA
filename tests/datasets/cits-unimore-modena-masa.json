@@ -1,0 +1,78 @@
+{
+   "header": {
+      "protocolVersion": 2,
+      "messageID": 31,
+      "stationID": 3907
+   },
+   "masa": {
+      "parameters": {
+         "source_idx": 2,
+         "timestamp": 1683963811629
+      },
+      "road_users": [
+         {
+            "category": "car",
+            "latitude": 44.658145904541016,
+            "longitude": 10.930721282958984,
+            "speed": 62.5,
+            "orientation": 289.4117647058824,
+            "cam_id": 6313,
+            "object_id": 17613
+         },
+         {
+            "category": "car",
+            "latitude": 44.65823745727539,
+            "longitude": 10.930683135986328,
+            "speed": 69.0,
+            "orientation": 110.11764705882354,
+            "cam_id": 6313,
+            "object_id": 17612
+         },
+         {
+            "category": "car",
+            "latitude": 44.65808868408203,
+            "longitude": 10.930802345275879,
+            "speed": 0.0,
+            "orientation": 0.0,
+            "cam_id": 6314,
+            "object_id": 19951
+         },
+         {
+            "category": "car",
+            "latitude": 44.65807342529297,
+            "longitude": 10.930779457092285,
+            "speed": 24.0,
+            "orientation": 272.47058823529414,
+            "cam_id": 6314,
+            "object_id": 19950
+         },
+         {
+            "category": "car",
+            "latitude": 44.65812301635742,
+            "longitude": 10.930731773376465,
+            "speed": 33.5,
+            "orientation": 276.7058823529412,
+            "cam_id": 6314,
+            "object_id": 19949
+         },
+         {
+            "category": "car",
+            "latitude": 44.65834045410156,
+            "longitude": 10.93038272857666,
+            "speed": 0.0,
+            "orientation": 0.0,
+            "cam_id": 6312,
+            "object_id": 4691
+         },
+         {
+            "category": "car",
+            "latitude": 44.65834045410156,
+            "longitude": 10.930356979370117,
+            "speed": 91.0,
+            "orientation": 340.2352941176471,
+            "cam_id": 6312,
+            "object_id": 4690
+         }
+      ]
+   }
+}

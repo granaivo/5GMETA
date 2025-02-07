@@ -1,0 +1,33 @@
+{
+	"header": {
+		"protocolVersion": 2,
+		"messageID": 12,
+		"stationID": 3907
+	},
+	"traffic_sensors": [{
+		"Throughput": 0.0,
+		"OccupationRate": 0.0,
+		"Time": "2023-05-10 09:16:03",
+		"SensorId": "s01"
+	}, {
+		"Throughput": 2.5,
+		"OccupationRate": 1.94444,
+		"Time": "2023-05-10 09:16:46",
+		"SensorId": "s02"
+	}, {
+		"Throughput": 7.5,
+		"OccupationRate": 13.3333,
+		"Time": "2023-05-10 09:00:09",
+		"SensorId": "s03"
+	}, {
+		"Throughput": 2.5,
+		"OccupationRate": 6.80556,
+		"Time": "2023-05-09 21:44:04",
+		"SensorId": "s04"
+	}, {
+		"Throughput": 5.0,
+		"OccupationRate": 13.0556,
+		"Time": "2023-05-10 08:52:10",
+		"SensorId": "s05"
+	}]
+}

@@ -1,0 +1,217 @@
+{
+    "header": {
+        "protocolVersion": 2,
+        "messageID": 41,
+        "stationID": 3907
+    },
+    "pld": {
+        "sourceid": 92050,
+        "sourcegps": [
+            40487111,
+            79494789
+        ],
+        "timestamp": 1684077089,
+        "spaces": [
+            {
+                "spaceid": 0,
+                "space": [
+                    44656399,
+                    10929777
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 1,
+                "space": [
+                    44656526,
+                    10929629
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 2,
+                "space": [
+                    44656394,
+                    10929774
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 3,
+                "space": [
+                    44656209,
+                    10930632
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 4,
+                "space": [
+                    44656462,
+                    10929469
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 5,
+                "space": [
+                    44656424,
+                    10929513
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 6,
+                "space": [
+                    44656356,
+                    10929587
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 7,
+                "space": [
+                    44656465,
+                    10929602
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 8,
+                "space": [
+                    44656395,
+                    10929775
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 9,
+                "space": [
+                    44656769,
+                    10929185
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 10,
+                "space": [
+                    44656239,
+                    10930137
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 11,
+                "space": [
+                    44656547,
+                    10930281
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 12,
+                "space": [
+                    44656466,
+                    10929664
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 13,
+                "space": [
+                    44656399,
+                    10929777
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 14,
+                "space": [
+                    44656376,
+                    10929501
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 15,
+                "space": [
+                    44656333,
+                    10929380
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 16,
+                "space": [
+                    44656557,
+                    10929454
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 17,
+                "space": [
+                    44658725,
+                    10923314
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 18,
+                "space": [
+                    44656343,
+                    10929686
+                ],
+                "prediction": 0
+            },
+            {
+                "spaceid": 19,
+                "space": [
+                    44656396,
+                    10929776
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 20,
+                "space": [
+                    44656459,
+                    10929681
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 21,
+                "space": [
+                    44656402,
+                    10929760
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 22,
+                "space": [
+                    44656346,
+                    10929696
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 23,
+                "space": [
+                    44656387,
+                    10929767
+                ],
+                "prediction": 1
+            },
+            {
+                "spaceid": 24,
+                "space": [
+                    44656367,
+                    10929570
+                ],
+                "prediction": 1
+            }
+        ]
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "header": {
+        "protocolVersion": 2,
+        "messageID": 2,
+        "stationID": 10
+    },
+    "cam": {
+        "generationDeltaTime": 1,
+        "camParameters": {
+            "basicContainer": {
+                "stationType": 5,
+                "referencePosition": {
+                    "latitude": 435549160,
+                    "longitude": 103036950
+                }
+            },
+            "highFrequencyContainer": {
+                "basicVehicleContainerHighFrequency": {
+                    "heading": {
+                        "headingValue": 1340
+                    },
+                    "speed": {
+                        "speedValue": 618
+                    },
+                    "vehicleLength": {
+                        "vehicleLengthValue": 42,
+                        "vehicleLengthConfidenceIndication": "unavailable"
+                    },
+                    "vehicleWidth": 20,
+                    "longitudinalAcceleration": {
+                        "longitudinalAccelerationValue": 161,
+                        "longitudinalAccelerationConfidence": 102
+                    },
+                    "accelerationControl": "00",
+                    "lanePosition": -1
+                }
+            }
+        }
+    }
+}

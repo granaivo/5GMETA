@@ -1,0 +1,16 @@
+{
+    "header": {
+        "protocolVersion": 2,
+        "messageID": 96,
+        "stationID": 58
+    },
+    "dms": {
+        "timestamp": 1684077471813,
+        "referencePosition": {
+            "latitude": 446572723,
+            "longitude": 109295272
+        },
+        "dms_level": 1,
+        "dms_trigger": 4
+    }
+}
