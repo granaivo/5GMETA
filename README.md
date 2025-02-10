@@ -33,20 +33,18 @@
 
 This project is a new version of the 5GMETA open source platform published at the end of the H2020 5GMETA project. The original project is available here: https://github.com/5gmeta/5gmeta
 
-The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform is an open data-centric Internet of Things (IoT) messaging platform for [Connected and Automated Mobility (CAM)](https://digital-strategy.ec.europa.eu/en/policies/connected-and-automated-mobility) applications and service providers. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform creates a CAM data monetization ecosystem that allows different stakeholders along the data value chain to exploit data in a more effective and profitable way.
+The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform is an open data-centric Internet of Things (IoT) messaging platform for [Connected and Automated Mobility (CAM)](https://digital-strategy.ec.europa.eu/en/policies/connected-and-automated-mobility) applications and service providers. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform creates a CCAM data monetization ecosystem that allows different stakeholders along the data value chain to exploit data in a more effective and profitable way.
 
-A fundamental principle supported by the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform is that of achieving a total decoupling between Data Producers and Data Consumers. This means that Data Producers do not need to be directly connected to Data Consumers. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform acts as a broker between Data Producers (vehicles or RSUs) and Data consumers (third-party applications or services). However, the 5GMETA Platform is not a simple publish-subscribe broker, and it includes functions for data management, data monetization and cybersecurity as well as providing data access mechanisms. The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides secure end-to-end data management services such as data anonymization, encryption, packaging/formatting, computing and sharing mechanisms.
+A fundamental principle supported by the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform is that of achieving a total decoupling between Data Producers and Data Consumers. This means that Data Producers do not need to be directly connected to Data Consumers. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform acts as a broker between Data Producers (vehicles or RSUs) and Data consumers (third-party applications or services). However, the 5GMETA Platform is not a simple publish-subscribe broker, and it includes functions for data management, [data monetization](https://zenodo.org/records/13771538) and cybersecurity as well as providing data access mechanisms. The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides secure end-to-end data management services such as data anonymization, encryption, packaging/formatting, computing and sharing mechanisms.
 In contrast with a Data Lake, the 5GMETA Platform provides live data delivery. The users of the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform receive the data from the subscribed dataflows in a continuous manner with no storage service within the 5GMETA Platform rather than the required memory buffering.
 
-The 5GMETA open platform aims to leverage car-captured data to stimulate, facilitate and feed innovative products and service.
-This platform intends to catalyse data and provide OEMs, SMEs and high-tech start-ups with them in order to feed their innovative services and ideas and, ultimately, generate revenues.
+The 5GMETA open platform aims to leverage car-captured data to stimulate, facilitate and feed innovative products and service. This platform intends to catalyse data and provide OEMs, SMEs and high-tech start-ups with them in order to feed their innovative services and ideas and, ultimately, generate revenues.
 
 It is designed to operate as a common infrastructure for implementing data pipelines for heterogeneous [Connected, Cooperative and Automated Mobility (CCAM)](https://transport.ec.europa.eu/transport-themes/smart-mobility/cooperative-connected-and-automated-mobility-ccam_en) applications.
 
 ![Platform Overview](docs/images/platform_high_level.jpg)
 
-[5GMETA](https://cordis.europa.eu/project/id/957360) Plateform is an interactive platform that functions as a broker between data producers (such as vehicles or road sensors) and data consumers (such as app providers). With the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform, data consumers can subscribe to specific data flows and decide how to use and deploy them: process them, store them or discard them. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform allows data to be decoupled from their producers, thus eliminating the necessity of creating direct links between producers and consumers.
-Nevertheless, the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform does not only act as a broker, but it also includes functions that address data management, data monetization and cybersecurity.
+[5GMETA](https://cordis.europa.eu/project/id/957360) Plateform is an interactive platform that functions as a broker between data producers (such as vehicles or road sensors) and data consumers (such as app providers). With the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform, data consumers can subscribe to specific data flows and decide how to use and deploy them: process them, store them or discard them. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform allows data to be decoupled from their producers, thus eliminating the necessity of creating direct links between producers and consumers. Nevertheless, the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform does not only act as a broker, but it also includes functions that address data management, data monetization and cybersecurity.
 
 ![Platform arch](docs/images/5GMETA_platform_elements.png)
 
@@ -55,12 +53,11 @@ Nevertheless, the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform 
 
 Three main profiles have been identified to interact with the data platform and are the following:
 
-- CAM services and applications developers
+- CCAM services and applications developers
 - Sensors and Devices providers
 - Infrastructure providers
-- 5G Netwok Operators
 
-Figure below illustrates the main relation of these different categories with the [5GMETA](https://cordis.europa.eu/project/id/957360) platform and the principal stakeholders for each of these three profiles.
+Figure below illustrates the main relation of these different categories with the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform and the principal stakeholders for each of these three profiles.
 
 ![User profiles overview](docs/images/5gmeta_actors.png)
 
@@ -69,10 +66,9 @@ Figure below illustrates the main relation of these different categories with th
 
 Third Parties utilizing the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform can request the deployment of a CCAM application in a [MEC](https://www.etsi.org/technologies/multi-access-edge-computing) server of the [5GMETA](https://cordis.europa.eu/project/id/957360) platform. By leveraging the direct access to the 5G network of data producers, these deployments enable swift information retrieval, significantly reducing latency. Additionally, the [MEC](https://www.etsi.org/technologies/multi-access-edge-computing) offers optimized edge computing capabilities, enhancing scalability, reliability, and resource utilization.
 
-To ensure the security and integrity of the [MEC](https://www.etsi.org/technologies/multi-access-edge-computing), a stringent deployment procedure is followed.
-The procedure for this deployment works as follows:
+To ensure the security and integrity of the [MEC](https://www.etsi.org/technologies/multi-access-edge-computing), a stringent deployment procedure is followed. The procedure for this deployment works as follows:
 
-1. Contacting the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator: the Third Party provides essential artifacts, including the Helm chart and the VNF (Virtual Network Function) descriptor, to the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator.
+1. Contacting the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator: the Third Party provides essential artifacts, including the [Helm chart](https://helm.sh/docs/topics/charts/) and the [VNF (Virtual Network Function) descriptor](https://osm.etsi.org/gitlab/vnf-onboarding/osm-packages), to the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator.
 2. Quarantine Procedure: the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator deploys the application in a dedicated test environment.
 3. Testing Application Behaviour: during this phase,  the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator conducts comprehensive testing to validate the application correct behaviour. These tests verify the proper utilization of the MEC resources and the correct access to the [5GMETA](https://cordis.europa.eu/project/id/957360) data.
 4. Deployment in the MEC environment: once the application passes the tests, it can be deployed on demand by the Third Party, using the same technical procedure used to deploy the modules of the MEC pipelines.
@@ -113,7 +109,6 @@ A Dataflow is a unique flow/stream of produced data that is shared by a S&D thro
 A **Pipeline** is a group of Modules (containers) running in a MEC to handle a specific data-type. Each modules can process the data received subscribing a queue/topic and generate output data in a new queue/topic into the MEC’s message broker.
 A Module is a container running in a MEC that hande a specific data-type or group of data-type (e.g. C-ITS messages). Modules should be Pub/Sub application.
 
-
 ### InstanceTypes
 
 5GMETA Platform offers a range of computing resources for users to choose from which are regrouped in **Instance Types**:
@@ -143,23 +138,23 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 | Platform Component| Module          | Description             |
 |-------------------|---------------------|-------------------------------------------------------------------------------------------------------|
-|Cloud | [cloud-instance-api](https://gitlab.akka.eu/5gmeta-new/modules/cloud-instance-api.git)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype.                                                                                                                                                                |
+|[Cloud]() | [cloud-instance-api](https://gitlab.akka.eu/5gmeta-new/modules/cloud-instance-api.git)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype.                                                                                                                                                                |
 | | [dashboard](https://gitlab.akka.eu/5gmeta-new/modules/dashboard.git)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                                                                                        |
 | | [data_quality](https://gitlab.akka.eu/5gmeta-new/modules/data-quality.git)        | Contains the data quality assessment module based on ETSI TS 103 759 V2.1.1 (2023-01). This module assigns to each dataflow a quality value from 1 to 7.                                                                                                                                                                               |
 | | [dataflow-api](https://https://gitlab.akka.eu/5gmeta-new/modules/dataflow-api.git)        | Contains  the Dataflow APIs to a third-party application.                                                                                                                                                                                                            |
 | | [discovery](https://gitlab.akka.eu/5gmeta-new/modules/discovery.git)           | This API is in charge of managing all necessary information about MECs and their capabilities, coverage zones (tiles) and services provided by them to 3rd party applications and to [5GMETA](https://cordis.europa.eu/project/id/957360) platform members.                                                                                                                         |
 | | [identity](https://gitlab.akka.eu/5gmeta-new/modules/identiy.git)            | Conntains the implementation of the Identity and Acess Management using i Keycloak and the user information manager.                                                                                                                                                                          |
 | | [license](https://gitlab.akka.eu/5gmeta-new/modules/license.git)             | Contains the license API of the [5GMETA](https://cordis.europa.eu/project/id/957360) platform. For the platform operator, the license API allows the management of the dataflow licenses to be made available to the data consumers i.e. creation, update and deletion. For the data consumers, the license API allows the retrieval of the available dataflow licenses. |
-| MEC | [message-data-broker](https://gitlab.akka.eu/5gmeta-new/modules/message-data-broker.git) | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                                                                                         |
+| [MEC]() | [message-data-broker](https://gitlab.akka.eu/5gmeta-new/modules/message-data-broker.git) | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                                                                                         |
 | | [edgeinstance-api](https://gitlab.akka.eu/5gmeta-new/modules/edge-instance-api.git)        | Contains the API to manage the Edge Instance.                                                                                                                                                                     |
 | | [registration](https://gitlab.akka.eu/5gmeta-new/modules/registration.git)        | Contains all the components needed to implement the Registration API,  running on the Edge, providing REST APIs to interact with a dataflow database.                                                                                                                                                                 |
 | | [video-stream-broker](https://gitlab.akka.eu/5gmeta-new/modules/video-stream-broker.git) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.
-|Sensors and Devices| | Contains a set of Vagrant files and Python codes to test a vehicle |
+|[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
 
 
 ### CLOUD Platform  <a name="cloud-platform"></a>
 
-[5GMETA](https://cordis.europa.eu/project/id/957360) Cloud platform is deployable in any Kubernetes cluster.  A deployment is illustrated by the next figure which also shows the modules that form this cloud platform.
+[5GMETA](https://cordis.europa.eu/project/id/957360) Cloud platform is deployable in any Kubernetes cluster.  A deployment is illustrated by the next figure which also shows the modules that form this Cloud Platform.
 
 ![Cloud Platform](docs/images/Cloud%20Platform.png)
 
@@ -208,7 +203,7 @@ c.f [5GMETA Platform interactions with 3rd-parties](third-parties/README.md)
 
 ### Cloud Platform <a name="cloud-dep"></a>
 
-Before deploying the Cloud Platform, modify the its chart values especially:
+Before deploying the Cloud Platform, modify its Helm chart values especially:
 
 ```yaml
 global:
@@ -244,9 +239,9 @@ For more details on the deployment of the MEC Platform see: [README](https://git
 
 The testing of the 5GMETA project is detailed in this [README](./docs/testing/README.md)
 
-### The Cloud Platform on MS Azure <a name="cloud-test">
+### Access to the Cloud Platform  <a name="cloud-test">
 
-A test instance of the 5GMETA Platform is available on MS Azure and accessible using the following URL:
+After a successful deployment, the instance of the Cloud Platform is accessible using the following URLs:
 
 **APIs:**
 
@@ -268,10 +263,9 @@ A test instance of the 5GMETA Platform is available on MS Azure and accessible u
 - Grafana:   [https://your-fdqn/grafana/](https://your-fdqn/grafana/)
 - Dashboard: [https://your-fdqn/dashboard/](https://your-fdqn/dashboard/).
 
+### Access to the MEC Platform  <a name="mec-test">
 
-### The MEC Platform on MS Azure <a name="mec-test">
-
-A test instance of the MEC Platform is available MS Azure. The different services can be accessed in the next ports:
+After a successful deployment, the instance of the MEC Platform is accessible using the following URLs. The different services can be accessed in the next ports:
 
 - OSM UI in port [https://your-mec-fqdn](https://your-mec-fqdn)
 - OSM API (Orchestration API) in port https://your-mec-fqdn
@@ -323,11 +317,10 @@ The reader is invited to visit the following website for more details about the 
 
 In terms of perspectives, we are working to improve the Platform. These modifications will be done:
 - Upgrade and various improvments of the Python projects are needed (APIs)
-- Upgrade of the Angular projects is needed
+- Upgrade of the Angular project is needed
 - Upgrade of the Java project "User Business Information" is needed
 - Update Apache Kafka distribution:
    - Strimzi
-
 
 ## Cite this Work <a name="citethiswork"></a>
 
