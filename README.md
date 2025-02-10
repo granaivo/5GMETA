@@ -50,8 +50,10 @@ Platform Overview
 
 [5GMETA](https://cordis.europa.eu/project/id/957360) Plateform is an interactive platform that functions as a broker between data producers (such as vehicles or road sensors) and data consumers (such as app providers). With the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform, data consumers can subscribe to specific data flows and decide how to use and deploy them: process them, store them or discard them. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform allows data to be decoupled from their producers, thus eliminating the necessity of creating direct links between producers and consumers. Nevertheless, the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform does not only act as a broker, but it also includes functions that address data management, data monetization and cybersecurity.
 
-![Platform arch](docs/images/5GMETA_platform_elements.png)
-
+<p align="center">
+<img src="./docs/images/5GMETA_platform_elements.png" />
+Architecture of the 5GMETA Platform
+</p>
 
 ### [5GMETA](https://cordis.europa.eu/project/id/957360) Platform User profiles definition <a name="user-profiles"></a>
 
@@ -63,8 +65,10 @@ Three main profiles have been identified to interact with the data platform and 
 
 Figure below illustrates the main relation of these different categories with the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform and the principal stakeholders for each of these three profiles.
 
-![User profiles overview](docs/images/5gmeta_actors.png)
-
+<p align="center">
+<img src="./docs/images/5gmeta_actors.png" />
+User profiles overview
+</p>
 
 ### Platform instantiation of Low Latency Data services <a name="low-latencies"></a>
 
@@ -77,7 +81,11 @@ To ensure the security and integrity of the [MEC](https://www.etsi.org/technolog
 3. Testing Application Behaviour: during this phase,  the [5GMETA](https://cordis.europa.eu/project/id/957360) Operator conducts comprehensive testing to validate the application correct behaviour. These tests verify the proper utilization of the MEC resources and the correct access to the [5GMETA](https://cordis.europa.eu/project/id/957360) data.
 4. Deployment in the MEC environment: once the application passes the tests, it can be deployed on demand by the Third Party, using the same technical procedure used to deploy the modules of the MEC pipelines.
 
-![Procedure to instantiate a Low Latency Data service ](docs/images/low-latency-service-deployment.png)
+
+<p align="center">
+<img src="./docs/images/low-latency-service-deployment.png" />
+Procedure to instantiate a Low Latency Data service
+</p>
 
 
 ## Terminology <a name="terminology"></a>
@@ -94,11 +102,18 @@ In this consuming guide file, we provide information about the geographic areas 
 
 -  **[ETSI Cooperative Intelligent Transport Systems (C-ITS)](https://www.etsi.org/technologies/automotive-intelligent-transport)  messages (CAM, DENM, etc.)** converted in JSON.
 
-![Example](docs/images/cits-example.png)
+<p align="center">
+<img src="./docs/images/cits-example.png" />
+Example of C-ITS datatype
+</p>
+
 
 - **Images** in **JPG** Format
 
-![Example](docs/images/image-sample-vicomtech-donostia.jpg)
+<p align="center">
+<img src="./docs/images/image-sample-vicomtech-donostia.jpg" />
+Example of Image datatype
+</p>
 
 -  ***Video Streams*** in **H.264** video standard Format (x264 implementation)
 
@@ -124,7 +139,11 @@ Instance types refer to different configurations of computing resources that are
 
 The instance types are identified by unique type IDs (type_id) and human-readable names (type_name) to make it easier for users to select the type of instance that best suits their needs.
 
-  ![Example](docs/images/instancetypes.png)
+
+<p align="center">
+<img src="./docs/images/instancetypes.png" />
+Example of Instance types
+</p>
 
 
 ### 3rd-parties
@@ -160,7 +179,10 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 [5GMETA](https://cordis.europa.eu/project/id/957360) Cloud platform is deployable in any Kubernetes cluster.  A deployment is illustrated by the next figure which also shows the modules that form this Cloud Platform.
 
-![Cloud Platform](docs/images/Cloud%20Platform.png)
+<p align="center">
+<img src="./docs/images/Cloud%20Platform.png" />
+Illustration of the Cloud Platform
+</p>
 
 
 ### Cloud Services shortcuts
@@ -176,14 +198,19 @@ These building blocks include Identity, Discovery, Dataflow, Instance Type, Lice
 
 After all the necessary operations have been performed, the [5GMETA](https://cordis.europa.eu/project/id/957360) platform processes the request and provides the credentials needed to connect to the platform and Kafka topic to start consuming and building their application on top of [5GMETA](https://cordis.europa.eu/project/id/957360).
 
-![5GMETA Platform APIs to Sensors and Devices developers](docs/images/api_CAM_applications.png)
-
+<p align="center">
+<img src="./docs/images/api_CAM_applications.png" />
+5GMETA Platform APIs to Sensors and Devices developers
+</p>
 
 ### MEC Platform <a name="mec-platform"></a>
 
 The architecture of the MEC Platform and its modules  are illustrated  by the figure below.
 
-![MEC Platform](docs/images/MEC%20Platform.png)
+<p align="center">
+<img src="./docs/images/MEC%20Platform.png" />
+MEC Platform
+</p>
 
 
 ### Sensors and Devices <a name="sensors-and-devices"></a>
@@ -195,7 +222,11 @@ The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to regis
 
 Once a consumer connects to the data registered, the 5GMETA platform will update the Boolean value in order to start producing data to the connected parties. This will trigger a keepalive mechanism to determine which data flows are still active. The output of this method is the same information retrieved at the registration, including the ID of the data flow and its metadata.
 
-![5GMETA Platform APIs to Sensors and Devices developers](docs/images/api_sensors_devices.png)
+<p align="center">
+<img src="./docs/images/api_sensors_devices.png" />
+5GMETA Platform APIs to Sensors and Devices developers
+</p>
+
 
 5GMETA platform supports three types of data provided by sensors and devices: cits messages in JSON, images and video streaming.
 
