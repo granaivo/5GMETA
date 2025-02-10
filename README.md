@@ -309,14 +309,14 @@ The work presented in this repository was a collabortive effort by several teams
 Contributions are welcome :blush: See [how to contribute](./CONTRIBUTING.md).
 
 
-## Conclusion and Perspectives <a name="conclusions"></a>
+## Conclusion and Roadmap <a name="conclusions"></a>
 
 This document describes several aspects of 5GMETA Platform including its architecture and deployment in development environments.
 The reader is invited to visit the following website for more details about the H2020 5GMETA project:
 
 - https://cordis.europa.eu/project/id/957360
 
-In terms of perspectives, we are working to improve the Platform. These modifications will be done:
+In terms of roadmap, we are working to improve the Platform. These modifications will be done:
 - Upgrade and various improvments of the Python projects are needed (APIs)
 - Upgrade of the Angular project is needed
 - Upgrade of the Java project "User Business Information" is needed
