@@ -1,8 +1,7 @@
 # Welcome to 5GMETA contributing guide <!-- omit in toc -->
 
-Thank you for investing your time in contributing to our project!
 
-In this guide you will get an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
+This guide provides an overview of the contribution workflow from opening an issue, creating a PR, reviewing, and merging the PR.
 
 ## New contributor guide
 
@@ -16,7 +15,7 @@ To get an overview of the project, read the [README](./README.md) file. Here are
 
 ## Getting started
 
-We accept different types of contributions. Some of them don't even require writing a single line of code :sparkles:.
+Different types of contributions are possible. 
 
 ### Issues
 
@@ -55,11 +54,7 @@ Once you submit your PR, a 5GMETA team member will review your proposal. We may 
 
 ### Your PR is merged!
 
-Congratulations :tada::tada: The 5GMETA team thanks you :sparkles:.
-
 Once your PR is merged, your contributions will be publicly visible on the repository.
-
-
 This contributing guideline is based on this Github docs contributing guideline: https://github.com/github/docs/contribute
 
 
