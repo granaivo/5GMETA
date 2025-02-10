@@ -43,7 +43,10 @@ The 5GMETA open platform aims to leverage car-captured data to stimulate, facili
 
 It is designed to operate as a common infrastructure for implementing data pipelines for heterogeneous [Connected, Cooperative and Automated Mobility (CCAM)](https://transport.ec.europa.eu/transport-themes/smart-mobility/cooperative-connected-and-automated-mobility-ccam_en) applications.
 
-![Platform Overview](docs/images/platform_high_level.jpg)
+<p align="center">
+<img src="./docs/images/platform_high_level.jpg" />
+Platform Overview
+</p>
 
 [5GMETA](https://cordis.europa.eu/project/id/957360) Plateform is an interactive platform that functions as a broker between data producers (such as vehicles or road sensors) and data consumers (such as app providers). With the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform, data consumers can subscribe to specific data flows and decide how to use and deploy them: process them, store them or discard them. The [5GMETA](https://cordis.europa.eu/project/id/957360) Platform allows data to be decoupled from their producers, thus eliminating the necessity of creating direct links between producers and consumers. Nevertheless, the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform does not only act as a broker, but it also includes functions that address data management, data monetization and cybersecurity.
 
@@ -219,11 +222,11 @@ global:
       dbrootpassword: &globaldbrootpassword "root password"
 
    oauth2:
-     issuer: 5gmeta-platform.eu/identity
+     issuer: your-fqdn/identity
      realm: 5gmeta
      apisix:
        client: apisix
-       secret: "your apisis client secret."
+       secret: "your apisix client secret."
 ```
 
 For more details on the deployment of the Cloud Platform see: [README](https://gitlab.akka.eu/5gmeta-new/cloud-platform/-/blob/master/README.md)
