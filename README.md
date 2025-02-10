@@ -45,6 +45,7 @@ It is designed to operate as a common infrastructure for implementing data pipel
 
 <p align="center">
 <img src="./docs/images/platform_high_level.jpg" />
+
 Platform Overview
 </p>
 
@@ -52,6 +53,7 @@ Platform Overview
 
 <p align="center">
 <img src="./docs/images/5GMETA_platform_elements.png" />
+
 Architecture of the 5GMETA Platform
 </p>
 
@@ -67,6 +69,7 @@ Figure below illustrates the main relation of these different categories with th
 
 <p align="center">
 <img src="./docs/images/5gmeta_actors.png" />
+
 User profiles overview
 </p>
 
@@ -84,6 +87,7 @@ To ensure the security and integrity of the [MEC](https://www.etsi.org/technolog
 
 <p align="center">
 <img src="./docs/images/low-latency-service-deployment.png" />
+
 Procedure to instantiate a Low Latency Data service
 </p>
 
@@ -104,6 +108,7 @@ In this consuming guide file, we provide information about the geographic areas 
 
 <p align="center">
 <img src="./docs/images/cits-example.png" />
+
 Example of C-ITS datatype
 </p>
 
@@ -112,6 +117,7 @@ Example of C-ITS datatype
 
 <p align="center">
 <img src="./docs/images/image-sample-vicomtech-donostia.jpg" />
+
 Example of Image datatype
 </p>
 
@@ -142,6 +148,7 @@ The instance types are identified by unique type IDs (type_id) and human-readabl
 
 <p align="center">
 <img src="./docs/images/instancetypes.png" />
+
 Example of Instance types
 </p>
 
@@ -181,6 +188,7 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 <p align="center">
 <img src="./docs/images/Cloud%20Platform.png" />
+
 Illustration of the Cloud Platform
 </p>
 
@@ -200,6 +208,7 @@ After all the necessary operations have been performed, the [5GMETA](https://cor
 
 <p align="center">
 <img src="./docs/images/api_CAM_applications.png" />
+
 5GMETA Platform APIs to Sensors and Devices developers
 </p>
 
@@ -209,6 +218,7 @@ The architecture of the MEC Platform and its modules  are illustrated  by the fi
 
 <p align="center">
 <img src="./docs/images/MEC%20Platform.png" />
+
 MEC Platform
 </p>
 
@@ -224,6 +234,7 @@ Once a consumer connects to the data registered, the 5GMETA platform will update
 
 <p align="center">
 <img src="./docs/images/api_sensors_devices.png" />
+
 5GMETA Platform APIs to Sensors and Devices developers
 </p>
 
