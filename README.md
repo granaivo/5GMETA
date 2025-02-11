@@ -168,17 +168,17 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 | Platform Component| Module          | Description             |
 |-------------------|---------------------|-------------------------------------------------------------------------------------------------------|
-|[Cloud]() | [cloud-instance-api](https://gitlab.akka.eu/5gmeta-new/modules/cloud-instance-api.git)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype.                                                                                                                                                                |
-| | [dashboard](https://gitlab.akka.eu/5gmeta-new/modules/dashboard.git)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                                                                                        |
-| | [data_quality](https://gitlab.akka.eu/5gmeta-new/modules/data-quality.git)        | Contains the data quality assessment module based on ETSI TS 103 759 V2.1.1 (2023-01). This module assigns to each dataflow a quality value from 1 to 7.                                                                                                                                                                               |
-| | [dataflow-api](https://https://gitlab.akka.eu/5gmeta-new/modules/dataflow-api.git)        | Contains  the Dataflow APIs to a third-party application.                                                                                                                                                                                                            |
-| | [discovery](https://gitlab.akka.eu/5gmeta-new/modules/discovery.git)           | This API is in charge of managing all necessary information about MECs and their capabilities, coverage zones (tiles) and services provided by them to 3rd party applications and to [5GMETA](https://cordis.europa.eu/project/id/957360) platform members.                                                                                                                         |
-| | [identity](https://gitlab.akka.eu/5gmeta-new/modules/identiy.git)            | Conntains the implementation of the Identity and Acess Management using i Keycloak and the user information manager.                                                                                                                                                                          |
-| | [license](https://gitlab.akka.eu/5gmeta-new/modules/license.git)             | Contains the license API of the [5GMETA](https://cordis.europa.eu/project/id/957360) platform. For the platform operator, the license API allows the management of the dataflow licenses to be made available to the data consumers i.e. creation, update and deletion. For the data consumers, the license API allows the retrieval of the available dataflow licenses. |
-| [MEC]() | [message-data-broker](https://gitlab.akka.eu/5gmeta-new/modules/message-data-broker.git) | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                                                                                         |
-| | [edgeinstance-api](https://gitlab.akka.eu/5gmeta-new/modules/edge-instance-api.git)        | Contains the API to manage the Edge Instance.                                                                                                                                                                     |
-| | [registration](https://gitlab.akka.eu/5gmeta-new/modules/registration.git)        | Contains all the components needed to implement the Registration API,  running on the Edge, providing REST APIs to interact with a dataflow database.                                                                                                                                                                 |
-| | [video-stream-broker](https://gitlab.akka.eu/5gmeta-new/modules/video-stream-broker.git) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.
+|[Cloud]() | [cloud-instance-api](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype.                                                                                                                                                                |
+| | [dashboard](https://github.com/Akkodis/dashboard)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                                                                                        |
+| | [data_quality]()        | Contains the data quality assessment module based on ETSI TS 103 759 V2.1.1 (2023-01). This module assigns to each dataflow a quality value from 1 to 7.                                                                                                                                                                               |
+| | [dataflow-api](https://github.com/Akkodis/dataflow-api)        | Contains  the Dataflow APIs to a third-party application.                                                                                                                                                                                                            |
+| | [discovery](https://github.com/Akkodis/discovery)           | This API is in charge of managing all necessary information about MECs and their capabilities, coverage zones (tiles) and services provided by them to 3rd party applications and to [5GMETA](https://cordis.europa.eu/project/id/957360) platform members.                                                                                                                         |
+| | [identity](https://github.com/Akkodis/identity)            | Conntains the implementation of the Identity and Acess Management using i Keycloak and the user information manager.                                                                                                                                                                          |
+| | [license](https://github.com/Akkodis/license)             | Contains the license API of the [5GMETA](https://cordis.europa.eu/project/id/957360) platform. For the platform operator, the license API allows the management of the dataflow licenses to be made available to the data consumers i.e. creation, update and deletion. For the data consumers, the license API allows the retrieval of the available dataflow licenses. |
+| [MEC]() | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                                                                                         |
+| | [edgeinstance-api](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance.                                                                                                                                                                     |
+| | [registration](https://github.com/Akkodis/registration)        | Contains all the components needed to implement the Registration API,  running on the Edge, providing REST APIs to interact with a dataflow database.                                                                                                                                                                 |
+| | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.
 |[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
 
 
@@ -198,11 +198,11 @@ Illustration of the Cloud Platform
 The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides various building blocks that developers can use to develop CCAM applications on top of the platform.
 These building blocks include Identity, Discovery, Dataflow, Instance Type, License, Data Gateway which can be used as follows:
 
-1.	[Identity](https://gitlab.akka.eu/5gmeta-new/modules/identity.git): Developers can use this building block to retrieve the OpenID configuration and request access tokens to authenticate API requests.
-2.	[Discovery](https://gitlab.akka.eu/5gmeta-new/modules/discovery.git): This building block enables developers to browse available MECs, locations, and tile coverage to select the desired locations.
-3.	[Dataflow](https://gitlab.akka.eu/5gmeta-new/modules/dataflow-api.git): With this building block, developers can browse available data flows and datatypes that are available in the desired locations (MEC/ MECs) and select the ones that are relevant to their CCAM application and subscribe to the data flows that are most useful to their application, using the Platform APIs to consume data.
-4.	[Cloud Instance Type](https://gitlab.akka.eu/5gmeta-new/modules/cloud-instance-api.git): [5GMETA](https://cordis.europa.eu/project/id/957360) platform enables developers to select the preferred instance type and deployment configuration for their CCAM application, determining how much computational power is needed for their application.
-5.	[License](https://gitlab.akka.eu/5gmeta-new/modules/license.git): Allows developers to select the preferred license for their CCAM application, ensuring they have the necessary rights to use the data and services provided by the platform.
+1.	[Identity](https://github.com/Akkodis/identity): Developers can use this building block to retrieve the OpenID configuration and request access tokens to authenticate API requests.
+2.	[Discovery](https://github.com/Akkodis/discovery): This building block enables developers to browse available MECs, locations, and tile coverage to select the desired locations.
+3.	[Dataflow](https://github.com/Akkodis/dataflow-api): With this building block, developers can browse available data flows and datatypes that are available in the desired locations (MEC/ MECs) and select the ones that are relevant to their CCAM application and subscribe to the data flows that are most useful to their application, using the Platform APIs to consume data.
+4.	[Cloud Instance Type](https://github.com/Akkodis/cloud-instance-api): [5GMETA](https://cordis.europa.eu/project/id/957360) platform enables developers to select the preferred instance type and deployment configuration for their CCAM application, determining how much computational power is needed for their application.
+5.	[License](https://github.com/Akkodis/license): Allows developers to select the preferred license for their CCAM application, ensuring they have the necessary rights to use the data and services provided by the platform.
 
 After all the necessary operations have been performed, the [5GMETA](https://cordis.europa.eu/project/id/957360) platform processes the request and provides the credentials needed to connect to the platform and Kafka topic to start consuming and building their application on top of [5GMETA](https://cordis.europa.eu/project/id/957360).
 
@@ -227,8 +227,8 @@ MEC Platform
 
 The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to register and manage data flows to start sending Data to the platform, these building blocks include Discovery and Registration as described below.
 
-1.	[Discovery](https://gitlab.akka.eu/5gmeta-new/modules/discovery.git): The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
-2.	[Registration](https://gitlab.akka.eu/5gmeta-new/modules/registered.git): This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
+1.	[Discovery](https://github.com/Akkodis/discovery): The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
+2.	[Registration](https://github.com/Akkodis/registration): This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
 
 Once a consumer connects to the data registered, the 5GMETA platform will update the Boolean value in order to start producing data to the connected parties. This will trigger a keepalive mechanism to determine which data flows are still active. The output of this method is the same information retrieved at the registration, including the ID of the data flow and its metadata.
 
@@ -271,15 +271,15 @@ global:
        secret: "your apisix client secret."
 ```
 
-For more details on the deployment of the Cloud Platform see: [README](https://gitlab.akka.eu/5gmeta-new/cloud-platform/-/blob/master/README.md)
+For more details on the deployment of the Cloud Platform see: [README](https://github.com/Akkodis/Cloud-Platform/blob/main/README.md)
 
 ### MEC Platform <a name="mec-dep"></a>
 
-For more details on the deployment of the MEC Platform see: [README](https://gitlab.akka.eu/5gmeta-new/mec-platform/-/blob/master/README.md)
+For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/MEC-Platform/blob/main/README.md)
 
 ### Sensors and Devices <a name="sd-dep"></a>
 
-For more details on the deployment of the MEC Platform see: [README](https://gitlab.akka.eu/5gmeta-new/sensors-and-devices/-/blob/master/README.md)
+For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/Sensors-and-Devices/blob/main/README.md)
 
 ## Testing
 
