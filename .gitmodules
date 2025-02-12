@@ -1,0 +1,12 @@
+[submodule "cloud-platform"]
+	path = cloud-platform
+	url = git@github.com:Akkodis/cloud-platform.git
+[submodule "mec-platform"]
+	path = mec-platform
+	url = git@github.com:Akkodis/mec-platform.git
+[submodule "sensors-and-devices"]
+	path = sensors-and-devices
+	url = git@github.com:Akkodis/sensors-and-devices.git
+[submodule "third-parties"]
+	path = third-parties
+	url = git@github.com:Akkodis/third-parties.git
