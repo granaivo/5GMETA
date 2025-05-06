@@ -167,16 +167,14 @@ The [5GMETA](https://cordis.europa.eu/project/id/957360) platform has 3 main com
 This section presents the repositories of the main modules of the [5GMETA](https://cordis.europa.eu/project/id/957360) Paltform orgasined by platform components: Cloud, MEC and Sensors and Devices.
 
 | Platform Component| Module          | Description             |
-|-------------------|---------------------|-------------------------------------------------------------------------------------------------------|
-|[Cloud]() | [apiserver](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.
-|
-| | [identity](https://www.keycloak.org/)            | Conntains the implementation of the Identity and Acess Management using i Keycloak and the user information manager.                                                                                                                                                                          |
-| | [dashboard](https://superset.apache.org/)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                                                                                        |
-| | [data_quality]()        | Contains the data quality assessment module based on ETSI TS 103 759 V2.1.1 (2023-01). This module assigns to each dataflow a quality value from 1 to 7.                                                                                                                                                                               |
-| [MEC]() | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                                                                                         |
-| | [edgeinstance-api](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance.                                                                                                                                                                     |
-| | [registration](https://github.com/Akkodis/registration)        | Contains all the components needed to implement the Registration API,  running on the Edge, providing REST APIs to interact with a dataflow database.                                                                                                                                                                 |
-| | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.
+|-------------------|-----------------|-------------------------|
+|[Cloud]()          | [apiserver](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.|
+|                   | [identity](https://www.keycloak.org/)| Conntains the implementation of the Identity and Acess Management using  Keycloak and the user information manager.  |
+|                   | [dashboard](https://superset.apache.org/)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests. |
+|                   | [data_quality]() | Contains the data quality assessment module based on ETSI TS 103 759 V2.1.1 (2023-01). This module assigns to each dataflow a quality value from 1 to 7. |
+| [MEC]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |                                                                                                                                                                                                                                                             |                   | [edgeinstance-api](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance.               |
+|                   | [registration](https://github.com/Akkodis/registration)                  | Contains all the components needed to implement the Registration API,  running on the Edge, providing REST APIs to interact with a dataflow database.    |
+|                   | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.
 |[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
 
 
@@ -288,11 +286,7 @@ After a successful deployment, the instance of the Cloud Platform is accessible 
 
 **APIs:**
 
-- Discovery API UI: [https://your-fdqn/discovery-api/ui/](https://your-fdqn/discovery-api/ui/)
-- Instance API UI: [https://your-fdqn/cloudinstance-api/ui/](https://your-fdqn/cloudinstance-api/ui/)
-- Dataflow API UI: [https://your-fdqn/dataflow-api/ui/](https://your-fdqn/dataflow-api/ui/)
-- License API UI: [https://your-fdqn/license-api/ui/](https://your-fdqn/license-api/ui/)
-
+- API server  UI: [https://your-fdqn/discovery-api/ui/](https://your-fdqn/api/v1/ui/)
 **Kafka Platform:**
 
 - Brokers (Bootstrap): your-fdqn:31090, your-fdqn:31091, your-fdqn:31092
@@ -304,7 +298,7 @@ After a successful deployment, the instance of the Cloud Platform is accessible 
 
 - Keycloak:  [https://your-fdqn/identity/admin/](https://your-fdqn/identity/admin/)
 - Grafana:   [https://your-fdqn/grafana/](https://your-fdqn/grafana/)
-- Dashboard: [https://your-fdqn/dashboard/](https://your-fdqn/dashboard/).
+- Dashboard: [https://your-fdqn/](https://your-fdqn/dashboard/).
 
 ### Access to the MEC Platform  <a name="mec-test">
 
