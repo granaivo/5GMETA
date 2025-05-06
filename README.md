@@ -145,7 +145,6 @@ Instance types refer to different configurations of computing resources that are
 
 The instance types are identified by unique type IDs (type_id) and human-readable names (type_name) to make it easier for users to select the type of instance that best suits their needs.
 
-
 <p align="center">
 <img src="./docs/images/instancetypes.png" />
 
@@ -168,11 +167,11 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 | Platform Component| Module          | Description             |
 |-------------------|-----------------|-------------------------|
-|[Cloud]()          | [cloud-apiserver](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.|
+|[Cloud Platform]()          | [cloud-apiserver](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.|
 |                   | [identity](https://www.keycloak.org/)| Conntains the implementation of the Identity and Acess Management using  Keycloak and the user information manager.  |
 |                   | [dashboard](https://superset.apache.org/)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests. |
 |                   | [Apache Kafka]() | C-ITS ata exchange. |
-| [MEC]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |
+| [MEC Platform]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |
 |                   | [edge-apiserver](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance and Registration. |
 |                   | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.|
 |[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
@@ -193,7 +192,6 @@ Illustration of the Cloud Platform
 
 The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides various building blocks that developers can use to develop CCAM applications on top of the platform.
 These building blocks include Identity, Discovery, Dataflow, Instance Type, License, Data Gateway which can be used as follows:
-
 
 1.	[API Server](https://github.com/Akkodis/discovery): This building block enables developers to browse available MECs, locations, and tile coverage to select the desired locations, Dataflows and Licenses.
 2.	[Identity](https://www.keycloak.org/): Developers can use this building block to retrieve the OpenID configuration and request access tokens to authenticate API requests.
@@ -266,15 +264,15 @@ global:
        secret: "your apisix client secret."
 ```
 
-For more details on the deployment of the Cloud Platform see: [README](https://github.com/Akkodis/Cloud-Platform/blob/main/README.md)
+For more details on the deployment of the Cloud Platform see: [README](https://github.com/Akkodis/cloud-platform/blob/main/README.md)
 
 ### MEC Platform <a name="mec-dep"></a>
 
-For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/MEC-Platform/blob/main/README.md)
+For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/mec-platform/blob/main/README.md)
 
 ### Sensors and Devices <a name="sd-dep"></a>
 
-For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/Sensors-and-Devices/blob/main/README.md)
+For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/sensors-and-devices/blob/main/README.md)
 
 ## Testing
 
