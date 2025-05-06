@@ -172,7 +172,8 @@ This section presents the repositories of the main modules of the [5GMETA](https
 |                   | [identity](https://www.keycloak.org/)| Conntains the implementation of the Identity and Acess Management using  Keycloak and the user information manager.  |
 |                   | [dashboard](https://superset.apache.org/)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests. |
 |                   | [Apache Kafka]() | C-ITS ata exchange. |
-| [MEC]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |                                                                                                                                                                                                                                                             |                   | [edge-apiserver](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance and Registration. |
+| [MEC]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |
+|                   | [edge-apiserver](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance and Registration. |
 |                   | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.|
 |[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
 
