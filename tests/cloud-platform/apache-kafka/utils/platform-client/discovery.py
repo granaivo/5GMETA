@@ -1,7 +1,7 @@
 import requests
 import sys
 
-url = "https://your-mec-fqdn/discovery-api"
+url = "https://<domain>/discovery-api"
 
 def get_tiles(auth_header):
     try:
@@ -10,7 +10,6 @@ def get_tiles(auth_header):
         return tiles
 
     except Exception as err:
-#        print(f"{err}")
         sys.exit("Error getting tiles. Try again.")
     
 def get_mec_id(auth_header, tile):
@@ -21,5 +20,4 @@ def get_mec_id(auth_header, tile):
         return json_response[0]['id']
 
     except Exception as err:
-#        print(f"{err}")
         sys.exit("Error getting MEC ID. Try again.")

@@ -1,0 +1,3 @@
+confluent_kafka
+avro-python3
+python-qpid-proton

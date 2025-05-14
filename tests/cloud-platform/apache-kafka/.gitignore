@@ -1,0 +1,6 @@
+
+
+kafka-connect:0.6.tar.gz
+kafka-connect:1.0.0.tar.gz
+src/dev-version/kafka-connect/kafka-connect:*.tar.gz
+output/

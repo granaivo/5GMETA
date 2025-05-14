@@ -2,7 +2,9 @@
 # coding=utf-8
 
 import keycloak
-import api
+import discovery
+import dataflow
+import cloudinstance
 import re
 import json
 import sys
@@ -23,7 +25,7 @@ if __name__ == "__main__":
     disable_instanceapi = opts.disable_instanceapi
     # disable_instanceapi = False
 
-    broker_address = "your-mec-fqdn" 
+    broker_address = "<ip>" 
     bootstrap_port = "31090"
     registry_port =  "31081"
 
@@ -38,6 +40,8 @@ if __name__ == "__main__":
 
     tiles = []
     topics = []
+    license_type = ""
+    license_geo_limit = ""
     filters = ""
     source_ids = {}
     instance_ids = {}
@@ -52,7 +56,7 @@ if __name__ == "__main__":
 
     if choice == 'c' or choice == 'C':
         # REQUEST TILES WITH DATA AVAILABLE
-        available_tiles = api.get_tiles(auth_header)
+        available_tiles = discovery.get_tiles(auth_header)
         available_tiles = list(filter(None,re.split('\[|\]|\"|,|\n|\s',available_tiles)))
         print(f"\nYou have data avalaible in the following tiles:")
         print(f"{available_tiles}")
@@ -104,15 +108,51 @@ if __name__ == "__main__":
                         
                 print(f"\nSelected datatype(s): {datatypes}\n")
 
-                mec_id = str(api.get_mec_id(auth_header, tile))
+                mec_id = str(discovery.get_mec_id(auth_header, tile))
+
+                # DEFAULT AVAILABLE LICENSES
+                available_license_types = """["profit", "non-profit"]"""
+                available_license_geo_limits = """["local", "city", "country", "global"]"""
+
+                # SELECT LICENSES
+                available_license_types = list(filter(None,re.split('\[|\]|\"|,|\n|\s',available_license_types)))
+                available_license_geo_limits = list(filter(None,re.split('\[|\]|\"|,|\n|\s',available_license_geo_limits)))
+                
+                print(f"The default license types are: ")
+                print(f"{available_license_types}")
+                print(f"\nPlease enter your preferred license type or press ENTER if have no preference")
+                preferred_license_type = input("License type: ")
+                print(f"\nSelected license type: {preferred_license_type}\n")
+                if preferred_license_type:
+                    filters += "&licenseType="+preferred_license_type
+
+                print(f"The default license geolimits are: ")
+                print(f"{available_license_geo_limits}")
+                print(f"\nPlease enter your preferred license type or press ENTER if you have no preference")
+                preferred_license_geolimit = input("License geolimit: ")
+                print(f"\nSelected license type: {preferred_license_geolimit}\n")
+                if preferred_license_geolimit:
+                    filters += "&licenseGeoLimit="+preferred_license_geolimit
 
                 # REQUEST TOPICS TO DATAFLOW API           
                 for datatype in datatypes:
+                    print(f"Preparing topic request for {datatype}\n")
+
+                    # CHECK IF DATAFLOWS AVAILABLE WITH THE PREFERRED LICENSE
+                    print(f"Checking dataflows availability ...")
+                    ids = dataflow.get_ids(auth_header, tile, datatype, filters)
+                    if not ids:
+                        print("No dataflow available with the preferred license type and geolimit\n")
+                        break
+                    else:
+                        print("... OK\n")
+
                     # REQUEST INSTANCES TO INSTANCE API
                     if not disable_instanceapi:
                         instance_ids[mec_id] = []
                         avalaible_types_wide = cloudinstance.get_types(auth_header, mec_id)
                         avalaible_types_json = json.loads(avalaible_types_wide)
+                        print(avalaible_types_json)
                         avalaible_types = [d['type_name'] for d in avalaible_types_json]
                         print(f"You have the following instance types in tile {tile}: ")
                         print(f"{avalaible_types_wide}")
@@ -134,21 +174,6 @@ if __name__ == "__main__":
                     else:
                         instance_type = "small"
 
-                    print(f"You have the following subdatatypes in tile {tile}: ")
-                    ids = dataflow.get_ids(auth_header, tile, datatype, filters)
-                    avalaible_subdatatypes = set()
-                    for id in ids:
-                        id_props = dataflow.get_id_properties(auth_header,str(id))
-                        avalaible_subdatatypes.add(id_props['dataTypeInfo']['dataSubType'])
-                    avalaible_subdatatypes = list(avalaible_subdatatypes)
-                    print(f"{avalaible_subdatatypes}")
-                    print(f"\nPlease enter the subdatatype of {datatype} datatype you want to consume [q or Q to not select]: ")
-                    subdatatype = input("Subdatatype: ")
-                    filters = ""
-                    if subdatatype == 'q' or subdatatype == 'Q':
-                        filters = ""
-                    else: 
-                        filters = "&dataSubType="+subdatatype
                     topic = dataflow.request_topic(auth_header, tile, datatype, instance_type, filters)
                     topics.append(topic)
 
@@ -186,16 +211,4 @@ if __name__ == "__main__":
                 pass
     else:
         sys.exit("You did not request any data. Thank you for using 5GMETA Platform. Bye!")
-
-    #while True:
-    #    try:
-    #        pass
-    #    except KeyboardInterrupt:
-    #        print(f"\nExiting...")
-    #        for mec_id in instance_ids.keys():
-    #            for instance_id in instance_ids[mec_id]:
-    #                cloudinstance.delete_instance(auth_header, mec_id, instance_id)
-    #        for topic in topics:
-    #            dataflow.delete_topic(auth_header, topic)
-    #        sys.exit("\nThank you for using 5GMETA Platform. Bye!")
 

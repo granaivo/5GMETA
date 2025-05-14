@@ -1,7 +1,7 @@
 import requests
 import sys
 
-url = "https://your-mec-fqdn/dataflow-api"
+url = "https://<domain>/dataflow-api"
 
 def get_datatype_from_tile(auth_header, tile):
     try:
@@ -11,7 +11,6 @@ def get_datatype_from_tile(auth_header, tile):
         else:
             return datatypes.text
     except Exception as err:
-#        print(f"{err}")
         sys.exit("Error getting datatypes. Try again.")
     
 def request_topic(auth_header, tile, datatype, instance_type="", filters=""):
@@ -42,7 +41,6 @@ def get_ids(auth_header, tile, datatype, filters=""):
         
         return ids
     except Exception as err:
-#        print(f"{err}")
         sys.exit("Error requesting source ids. Try again.")
 
 def get_properties(auth_header, datatype):
@@ -53,21 +51,7 @@ def get_properties(auth_header, datatype):
         
         return properties
     except Exception as err:
-#        print(f"{err}")
         sys.exit("Error requesting datatype properties. Try again.")
-
-def get_id_properties(auth_header, id):
-    try:
-        r = requests.get(url + "/dataflows/" + id , headers=auth_header)
-        r.raise_for_status()
-        properties = r.json()
-        
-        return properties
-    except Exception as err:
-#        print(f"{err}")
-        sys.exit("Error requesting id properties. Try again.")
-
 
 def delete_topic(auth_header, topic):
     requests.delete(url + "/topics/" + topic, headers=auth_header)
-

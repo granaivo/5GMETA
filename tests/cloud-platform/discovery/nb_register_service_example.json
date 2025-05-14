@@ -1,0 +1,7 @@
+{
+  "description":"API to manage the SLAs and reservations in a 5GMETA MEC Server.",
+  "ip":"192.168.10.9",
+  "port":5000,
+  "props":"{}",
+  "service_name":"slaedge-api"
+}

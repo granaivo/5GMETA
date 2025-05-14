@@ -1,0 +1,40 @@
+5GMETA project client code
+
+This Python code is a client example for the 5GMETA project, The purpose of this client is to interact with the KSQLdb APIs using the ksql-python client wrapper available at https://github.com/bryanyang0528/ksql-python. 
+To install ksql package (the wrapper), run pip install ksql.
+The client script performs several tasks related to KSQL streams and connectors. The tasks include the following:
+1.	streams_list(): Returns a list of all streams that exist on the KSQL server.
+2.	connectors_running_list(): Returns a list of all connectors that are currently running on the KSQL server.
+3.	stream_exists(stream_name): Checks if a stream exists with a given name on the KSQL server.
+4.	drop_stream(stream_name): Drops a specified stream with a given name from the KSQL server.
+5.	create_stream_from_topic(stream_name, topic_name): Creates a a new stream from a given topic on the KSQL server with the given name, and binds it to a specified Kafka topic.
+6.	create_datatype_connector(datatype, name="JMS_SOURCE", activemq_url = "tcp://192.168.15.181:61616"): Creates a connector that pulls data of a given datatype from an ActiveMQ queue and writes it to a Kafka topic with the same name as the datatype.
+7.	create_sink_messages_connector(source_topic="event", dest_topic="event", name="JMS_SINK", activemq_url = "tcp://192.168.15.181:61616"): Creates a connector that reads data from a Kafka topic and writes it to an ActiveMQ queue with the same name as the Kafka topic.
+The script sets up connections and other variables at the beginning of the code, including the KSQL server's IP address and port, and the address of the MEC. The logging module is also imported and configured to use the DEBUG level.
+
+The IP addresses and ports of the KSQL server, MEC, and Kafka topics can be configured in the code by modifying the appropriate variables at the beginning of the code.
+
+
+
+
+Dependencies for the code:
+•	ksql - This can be installed using pip: pip install ksql
+•	time - This is a built-in module in Python and no installation is required.
+•	logging - This is a built-in module in Python and no installation is required.
+•	urllib - This is a built-in module in Python and no installation is required.
+•	matplotlib - This can be installed using pip: pip install matplotlib
+•	numpy - This can be installed using pip: pip install numpy
+
+Prerequisites:
+•	Python 3 installed
+•	The ksql-python package installed. You can install it using pip: pip install ksql
+Usage:
+•	Import the required packages and libraries, including time, logging, urllib.parse, ksql, and matplotlib.
+•	Specify the IP addresses and port numbers of the KSQL server, MEC, and ActiveMQ.
+•	Create a KSQLAPI client object and connect to the KSQL server.
+•	Use the functions provided in the script to interact with the KSQL server and create connectors between Kafka and ActiveMQ.
+
+This code is a Python script that provides a client for the KSQLdb APIs. The script uses the ksql-python package as a client wrapper for the KSQLdb APIs. It allows you to connect to a KSQL server and execute various functions, such as listing the available streams, dropping a stream, creating a stream from a topic, and creating connectors between Kafka and ActiveMQ message brokers.
+The code is well-commented, and each function has a docstring explaining what it does.
+To run this code, save it to a Python file and run the file using Python. The KSQL server must be running and accessible from the machine running the client code. The ActiveMQ and Kafka topics must also be running and accessible from the KSQL server.
+

@@ -1,7 +1,7 @@
 import requests
 import sys
 
-url = "https://cloudplatform.francecentral.cloudapp.azure.com/identity/realms/5gmeta/protocol/openid-connect/token"
+url = "https://<domain>/identity/realms/5gmeta/protocol/openid-connect/token"
 
 def get_auth_token(username, password):
     headers = {
@@ -23,7 +23,6 @@ def get_auth_token(username, password):
         return json_response['access_token']
         
     except Exception as err:
-        print(f"{err}")
         sys.exit("Invalid username or password")
 
 def get_header_with_token(username, password):

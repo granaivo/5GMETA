@@ -1,0 +1,35 @@
+{
+  "geolocation": [
+    {
+      "tile-id": "123123123123123123"
+    },
+    {
+      "tile-id": "123123123123123124"
+    }
+  ],
+  "lat": "43.2922071",
+  "lng": "-1.987018,17",
+  "name": "SanSebastian-MEC",
+  "organization": "Vicomtech",
+  "props": {},
+  "resources": {
+    "cpu": "12",
+    "gpu": "true",
+    "memory": "16",
+    "storage": "1000"
+  },
+  "sb_services": [
+    {
+      "description": "Message Broker",
+      "ip": "192.168.14.192",
+      "port": 5673,
+      "service_name": "message-broker"
+    },
+    {
+      "description": "Registration Service",
+      "ip": "192.168.14.192",
+      "port": 12346,
+      "service_name": "registration-api"
+    }
+  ]
+}
