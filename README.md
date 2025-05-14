@@ -167,12 +167,12 @@ This section presents the repositories of the main modules of the [5GMETA](https
 
 | Platform Component| Module          | Description             |
 |-------------------|-----------------|-------------------------|
-|[Cloud Platform]()          | [cloud-apiserver](https://github.com/Akkodis/cloud-instance-api)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.|
+|[Cloud Platform]()          | [cloud-apiserver](https://github.com/Akkodis/cloud-platform/tree/main/src/apiserver)   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.|
 |                   | [identity](https://www.keycloak.org/)| Conntains the implementation of the Identity and Acess Management using  Keycloak and the user information manager.  |
 |                   | [dashboard](https://superset.apache.org/)           | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests. |
 |                   | [Apache Kafka]() | C-ITS ata exchange. |
 | [MEC Platform]()           | [message-data-broker](https://github.com/Akkodis/message-data-broker) | Contains an ActiveMQ message broker to be deployed in the MEC. |
-|                   | [edge-apiserver](hhttps://github.com/Akkodis/edge-instance-api)        | Contains the API to manage the Edge Instance and Registration. |
+|                   | [edge-apiserver](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver)        | Contains the API to manage the Edge Instance and Registration. |
 |                   | [video-stream-broker](https://github.com/Akkodis/video-stream-broker) | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.|
 |[Sensors and Devices]()| | Contains a set of Vagrant files and Python codes to test a vehicle |
 
@@ -220,8 +220,9 @@ MEC Platform
 
 The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to register and manage data flows to start sending Data to the platform, these building blocks include Discovery and Registration as described below.
 
-1.	[Discovery](https://github.com/Akkodis/discovery): The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
-2.	[Registration](https://github.com/Akkodis/registration): This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
+1.	[Edge API Server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver):
+- The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
+- This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
 
 Once a consumer connects to the data registered, the 5GMETA platform will update the Boolean value in order to start producing data to the connected parties. This will trigger a keepalive mechanism to determine which data flows are still active. The output of this method is the same information retrieved at the registration, including the ID of the data flow and its metadata.
 
@@ -284,7 +285,7 @@ After a successful deployment, the instance of the Cloud Platform is accessible 
 
 **APIs:**
 
-- API server  UI: [https://your-fdqn/discovery-api/ui/](https://your-fdqn/api/v1/ui/)
+- Cloud Platform API server  UI: [https://your-fdqn/api/v1/ui/](https://your-fdqn/api/v1/ui/)
 **Kafka Platform:**
 
 - Brokers (Bootstrap): your-fdqn:31090, your-fdqn:31091, your-fdqn:31092
@@ -296,7 +297,7 @@ After a successful deployment, the instance of the Cloud Platform is accessible 
 
 - Keycloak:  [https://your-fdqn/identity/admin/](https://your-fdqn/identity/admin/)
 - Grafana:   [https://your-fdqn/grafana/](https://your-fdqn/grafana/)
-- Dashboard: [https://your-fdqn/](https://your-fdqn/dashboard/).
+- Dashboard: [https://your-fdqn/](https://your-fdqn/).
 
 ### Access to the MEC Platform  <a name="mec-test">
 
@@ -305,13 +306,12 @@ After a successful deployment, the instance of the MEC Platform is accessible us
 - OSM UI in port [https://your-mec-fqdn](https://your-mec-fqdn)
 - OSM API (Orchestration API) in port https://your-mec-fqdn
 - Grafana UI in port [https://your-mec-fqdn/grafana/](https://your-mec-fqdn/grafana/)
-- 5GMETA Edge Instance API [https://your-mec-fqdn/edgeinstance-api/](https://your-mec-fqdn/edgeinstance-api/)
-- 5GMETA Registration API [https://your-mec-fqdn/registration-api/](https://your-mec-fqdn/registration-api/)
+- 5GMETA MEC Plateform  API [https://your-mec-fqdn/api/v1/](https://your-mec-fqdn/api/v1/)
 - 5GMETA Message-Brokers:
-   - [Port 8161 for Broker UI](https://your-mec-fqdn/broker-ui/)
-   - [Port 5673 for producing data, clients)](https://your-mec-fqdn:5673)
-   - [Port 61616 of ActiveMQ, Kafka Connectors, Internal](https://your-mec-fqdn:61616)
-   - https://your-mec-fqdn:5673 (SB) and https://your-mec-fqdn:61616 (NB)
+   - [Port 30161 for Broker UI](https://your-mec-fqdn/broker-ui/)
+   - [Port 30672 for producing data, clients)](your-mec-fqdn:30672)
+   - [Port 30616 of ActiveMQ, Kafka Connectors, Internal](your-mec-fqdn:30616)
+   - your-mec-fqdn:30672 (SB) and your-mec-fqdn:30616 (NB)
 - 5GMETA Video-Broker in https://your-mec-fqdn:8443/, :<32000-32098>
 
 ## Credits <a name="credits"></a>
