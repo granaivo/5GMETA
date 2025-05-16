@@ -1,9 +1,0 @@
-kafka-python
-numpy
-python-qpid-proton
-requests
-confluent-kafka==2.0.2
-avro
-avro-python3
-fastavro
-avro_to_python

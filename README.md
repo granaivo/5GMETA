@@ -17,7 +17,7 @@
     1. [Cloud Platform](#cloud-dep)
     2. [MEC Plateform](#mec-dep)
     3. [Sensors and Devices](#sd-dep)
-4. [Testing](#testing)
+4. [AKKODIS' new 5GMETA Platform Demonstrator](#testing)
     1. [Cloud Platform](#cloud-test)
     2. [MEC Platform](#mec-test)
 5. [Governace]()
@@ -29,6 +29,7 @@
    2. [Platform Monitoring](./docs/metering/README.md)
    3. [Tutorials](./docs/tutorials/README.md)
    4. [Third parties](./third-parties//README.md)
+   5. [Tests](./tests/README.md)
 
 ## Introduction <a name="introduction"></a>
 
@@ -275,7 +276,7 @@ For more details on the deployment of the MEC Platform see: [README](https://git
 
 For more details on the deployment of the MEC Platform see: [README](https://github.com/Akkodis/sensors-and-devices/blob/main/README.md)
 
-## Testing
+## AKKODIS 5GMETA Platform Demonstrator
 
 The testing of the 5GMETA project is detailed in this [README](./docs/testing/README.md)
 

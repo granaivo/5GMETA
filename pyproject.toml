@@ -1,0 +1,47 @@
+[project]
+name = "py5gmeta_akkodis"
+version = "0.0.1"
+
+authors = [
+  { name="Djibrilla Amadou Kountche", email="5gmeta@akkodis.com"}
+]
+
+description = "A Python Library for interaction with the 5GMETA Platform"
+readme = " README.md"
+
+requires-python = ">3.9"
+dependencies = [
+  "python3-qpid-proton",
+  "python3-avro",
+  "python3-confluent-kafka",
+  "gstreamer1.0-plugins-bad",
+  "gstreamer1.0-libav",
+  "python3-gst-1.0",
+  "kafka-python",
+  "numpy",
+  "requests",
+  "confluent-kafka",
+  "avro",
+  "avro-python3",
+  "fastavro",
+  "avro_to_python",
+  "pygeotile"  
+]
+
+classifiers = [
+     "Programming Language :: Python :: 3",
+     "Operating System :: OS Independent",
+]
+
+license = "EUPL"
+license-files = ["LICEN[CS]E*"]
+
+
+[project.urls]
+Homepage = "https://github.com/Akkodis/5gmeta"
+Isssues  = "https://github.com/Akkodis/issues"
+
+
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
