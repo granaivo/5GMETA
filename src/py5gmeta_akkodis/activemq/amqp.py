@@ -24,15 +24,11 @@ from proton.reactor import Container
 from pygeotile.tile import Tile
 from proton.reactor import Container
 from  py5gmeta.common import database, content, api, address, content
-
-
-
 import optparse
 import json
 import time
 import codecs
 import os
-
 import random
 import sqlalchemy as db
 import requests
