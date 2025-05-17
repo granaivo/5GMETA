@@ -1,9 +1,8 @@
 import requests
 import sys
 
-url = "https://cloudplatform.francecentral.cloudapp.azure.com/identity/realms/5gmeta/protocol/openid-connect/token"
 
-def get_auth_token(username, password):
+def get_auth_token(access_token_endpoint, username, password):
     headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
     }
@@ -16,7 +15,7 @@ def get_auth_token(username, password):
     }
     
     try:
-        r = requests.post(url, headers=headers, data=data)
+        r = requests.post(access_token_endpoint, headers=headers, data=data)
         r.raise_for_status()
         json_response = r.json()
         
@@ -26,12 +25,12 @@ def get_auth_token(username, password):
         print(f"{err}")
         sys.exit("Invalid username or password")
 
-def get_header_with_token(username, password):
-    token = "Bearer " + get_auth_token(username, password)
+
+def get_header_with_token(access_toeken_endpoint, username, password):
+    token = "Bearer " + get_auth_token(access_token_endpoint, username, password)
 
     headers = {
     'Authorization': token,
     }
 
     return headers
-    
