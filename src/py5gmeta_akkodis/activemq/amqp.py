@@ -59,6 +59,9 @@ class Receiver(MessagingHandler):
     def on_transport_error(self, event):
         raise Exception(event.transport.condition)
 
+    def receeive():
+        pass
+
 
 
 class Sender(MessagingHandler):
@@ -90,6 +93,9 @@ class Sender(MessagingHandler):
 
     def on_transport_error(self, event):
         raise Exception(event.transport.condition)
+
+    def send():
+        passs
 
 
 def sendKeepAlive(dataflowmetadata, dataflowId):
