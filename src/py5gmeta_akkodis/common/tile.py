@@ -4,10 +4,10 @@ from requests import get
 from pygeotile.tile import Tile
 
 
-def get_tile_by_position(latitude, longitude,zoom=18):
+def get_tile_by_position(latitude, longitude, zoom=18):
     tileTmp = Tile.for_latitude_longitude(latitude=latitude, longitude=longitude, zoom=zoom)
-    tile=str(tileTmp.quad_tree)
-    return tile
+    return  str(tileTmp.quad_tree)
+
 
 
 def get_tile_by_url(url='https://api.ipify.org', zoom=16):
