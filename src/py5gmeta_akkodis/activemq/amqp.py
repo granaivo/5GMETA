@@ -24,14 +24,14 @@ from proton.reactor import Container
 from pygeotile.tile import Tile
 from proton.reactor import Container
 
-import discovery_registration
+
 import address
 import optparse
 import json
 import time
 import codecs
 import address
-
+import os
 
 import random
 import sqlalchemy as db
@@ -40,13 +40,8 @@ import requests
 import optparse
 import json
 import time
-import py5gmeta.common.sd_database
-import py5gmeta.common.content
-import py5gmeta.common.api
-import py5gmeta.common.address
-import py5gmeta.common.content
-import os
-import content_folder
+from  py5gmeta.common import database, content, api, address, content
+
 
 
 
@@ -111,7 +106,7 @@ def sendKeepAlive(dataflowmetadata, dataflowId):
     global send
     while(True):
         time.sleep(30)
-        r= discovery_registration.keepAliveDataflow(dataflowmetadata,dataflowId)
+        r= api.keepAliveDataflow(dataflowmetadata,dataflowId)
         print(r.text)
         send = r.json()['send']
 
