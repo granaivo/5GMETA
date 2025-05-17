@@ -1,4 +1,3 @@
-
 from confluent_kafka.admin import AdminClient, NewTopic
 
 a = AdminClient({'bootstrap.servers': '192.168.49.2:31090'})

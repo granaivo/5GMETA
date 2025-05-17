@@ -9,119 +9,16 @@ from helpers import msg_to_dict, delivery_report
 from config import TOPIC, BOOTSTRAP_SERVERS, SCHEMA_REGISTRY_URL
 
 import sys
+message = str(sys.argv[1])
 
-def main():
+def produce(message, schema):
 
     if len(sys.argv) != 2:
         print("Usage: python3 kafka_event_sender.py message")
         exit()
 
-    message = str(sys.argv[1])
 
-    schema_str = """
-    {
-        "connect.name": "com.datamountaineer.streamreactor.connect.jms",
-        "fields": [
-            {
-                "default": null,
-                "name": "message_timestamp",
-                "type": [
-                    "null",
-                    "long"
-                ]
-            },
-            {
-                "default": null,
-                "name": "correlation_id",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "redelivered",
-                "type": [
-                    "null",
-                    "boolean"
-                ]
-            },
-            {
-                "default": null,
-                "name": "reply_to",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "destination",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "message_id",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "mode",
-                "type": [
-                    "null",
-                    "int"
-                ]
-            },
-            {
-                "default": null,
-                "name": "type",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "priority",
-                "type": [
-                    "null",
-                    "int"
-                ]
-            },
-            {
-                "default": null,
-                "name": "payload",
-                "type": [
-                    "null",
-                    "string"
-                ]
-            },
-            {
-                "default": null,
-                "name": "properties",
-                "type": [
-                    "null",
-                    {
-                        "type": "map",
-                        "values": [
-                            "null",
-                            "string"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "name": "jms",
-        "namespace": "com.datamountaineer.streamreactor.connect",
-        "type": "record"
-    }
-    """
+
     schema_registry_conf = {'url': SCHEMA_REGISTRY_URL}
 
     schema_registry_client = SchemaRegistryClient(schema_registry_conf)
@@ -149,6 +46,3 @@ def main():
 
     print("\\nFlushing records...")
     producer.flush()
-
-if __name__ == '__main__':
-    main()

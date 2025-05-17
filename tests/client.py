@@ -24,6 +24,33 @@ from proton.handlers import MessagingHandler
 from proton.reactor import Container
 
 
+# Geoposition - Next steps: from GPS device. Now hardcoded.
+latitude    = 43.3128
+longitude    = -1.9750
+
+tileTmp = Tile.for_latitude_longitude(latitude=latitude, longitude=longitude, zoom=18)
+
+## Replace with your S&D mysql database credentials
+DB_USER_user="dbuser"
+DB_PASSWIRD="dbpassword"
+DB_HOST_ip="192.168.14.192"
+DB__PORT="3307"
+
+tile=str(tileTmp.quad_tree)
+username="5gmeta-platform"
+password="5gmeta-platform"
+
+send = False
+dataflowId = -1
+topic = ""
+
+timeinterval=10
+keepAliveInterval=25 # time in seconds to send a new keep alive
+messages=1
+folder_path="sample_images"
+dir_path = r'sample_images'
+
+
 class Client(MessagingHandler):
     def __init__(self, url, requests):
         super(Client, self).__init__()

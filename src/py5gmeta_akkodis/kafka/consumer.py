@@ -10,13 +10,86 @@ from confluent_kafka import KafkaError
 from confluent_kafka.avro import AvroConsumer
 from confluent_kafka.avro.serializer import SerializerError
 from confluent_kafka.cimpl import TopicPartition
-import sys
+from confluent_kafka import DeserializingConsumer
+from confluent_kafka.schema_registry import SchemaRegistryClient
+from confluent_kafka.schema_registry.avro import AvroDeserializer
+from confluent_kafka.serialization import StringDeserializer
+from confluent_kafka import KafkaError
+from confluent_kafka.avro import AvroConsumer
+from confluent_kafka.avro.serializer import SerializerError
+from confluent_kafka.cimpl import TopicPartition
+from confluent_kafka import Consumer, KafkaException
+from confluent_kafka import KafkaError
+from confluent_kafka.avro import AvroConsumer
+from confluent_kafka.avro.serializer import SerializerError
+from confluent_kafka.cimpl import TopicPartition
+from kafka import KafkaConsumer
+
+
 import base64
+
 import requests
 import proton
 import os
 import statistics
 from prometheus_client import start_http_server, Gauge
+from email import header
+
+from pprint import pformat
+
+
+import base64
+
+
+import requests
+
+#from proton.handlers import MessagingHandler
+import proton
+import random
+import string
+
+
+import sys
+import getopt
+import json
+import logging
+from pprint import pformat
+
+
+import sys
+import base64
+import requests
+import security
+
+#from proton.handlers import MessagingHandler
+import proton
+
+import sys
+import time
+import numpy
+
+import json
+
+import gi
+
+from gi.repository import Gst, GObject, GLib, GstApp, GstVideo
+
+
+import ast
+import requests
+import proton
+
+import avro.schema
+from avro.io import DatumReader, BinaryDecoder
+import io
+
+
+gi.require_version('GLib', '2.0')
+gi.require_version('GObject', '2.0')
+gi.require_version('Gst', '1.0')
+gi.require_version('GstApp', '1.0')
+gi.require_version('GstVideo', '1.0')
+
 
 platformaddress = os.environ['CLOUD_PLATFORM_HOST']
 bootstrap_port = os.environ['KAFKA_BOOSTSTRAP_PORT']
@@ -28,6 +101,18 @@ url = "https://"+platformaddress+':'+dataflowapi_port+'/dataflow-api/topics/cits
 
 print(requests.delete("https://"+platformaddress+':'+dataflowapi_port+'/dataflow-api/topics/5GMETA_1009_CITS_LARGE_7', headers=keycloak.get_header_with_token("5gmeta", "5Gm3t4!")))
      time.sleep(100000)
+
+
+i = 0
+
+monitoring_port = int(os.getenv("MONITORING_PORT", 8080))
+start_http_server(monitoring_port)
+gauge = Gauge(
+    "application_latency",
+    "Application Latency."
+)
+
+latencies = [0,0,0,0,0,0,0,0,0,0]
 
 
 def get_topic(url, username, password, quad):
@@ -63,23 +148,13 @@ def get_avro_consumer(topic, cloud_platform_host, bootstrp_port, registry_port):
     return c
 
 
-
-i = 0
-
-monitoring_port = int(os.getenv("MONITORING_PORT", 8080))
-start_http_server(monitoring_port)
-gauge = Gauge(
-    "application_latency",
-    "Application Latency."
-)
-
-latencies = [0,0,0,0,0,0,0,0,0,0]
 def add_latency(value):
     if len(latencies) >= 10:
         latencies.pop(0)  # Remove the first element
     latencies.append(value)
 
-def consume(avro, latencies):
+
+def consume(avro, latencies, function):
 
     while True:
         msg = c.poll(0.1)
@@ -108,28 +183,7 @@ def consume(avro, latencies):
 
     avro.close()
 
-# Some sample code for the cosumere can be find 
-# here https://github.com/confluentinc/confluent-kafka-python/blob/master/examples/json_consumer.py
 
-from confluent_kafka import Consumer, KafkaException
-import sys
-import getopt
-import json
-import logging
-from pprint import pformat
-
-from confluent_kafka import KafkaError
-from confluent_kafka.avro import AvroConsumer
-from confluent_kafka.avro.serializer import SerializerError
-from confluent_kafka.cimpl import TopicPartition
-import sys
-import base64
-import requests
-
-#from proton.handlers import MessagingHandler
-import proton
-import random
-import string
 
 # https://stackoverflow.com/questions/2511222/efficiently-generate-a-16-character-alphanumeric-string
 def generateRandomGroupId (length=8):
@@ -144,20 +198,7 @@ platformaddress=str(sys.argv[2])
 bootstrap_port=str(sys.argv[3])
 schema_registry_port=str(sys.argv[4])
 
-c = AvroConsumer({
-    'bootstrap.servers': platformaddress+ ':' + bootstrap_port,
-    'schema.registry.url':'http://'+platformaddress+':' + schema_registry_port, 
-    'group.id': topic+'_'+generateRandomGroupId(4),
-    'api.version.request': True,
-    'auto.offset.reset': 'earliest'
-})
 
-c.subscribe([topic.upper()])
-
-print("Subscibed topics: " + str(topic))
-print("Running...")
-
-i = 0
 
 while True:
     msg = c.poll(1.0)
@@ -201,56 +242,15 @@ c.close()
 # Some sample code for the cosumere can be find 
 # here https://github.com/confluentinc/confluent-kafka-python/blob/master/examples/json_consumer.py
 
-from email import header
-from confluent_kafka import Consumer, KafkaException
-import sys
-from pprint import pformat
 
-from confluent_kafka import KafkaError
-from confluent_kafka.avro import AvroConsumer
-from confluent_kafka.avro.serializer import SerializerError
-from confluent_kafka.cimpl import TopicPartition
-import sys
-import base64
-import sys
-
-#from proton.handlers import MessagingHandler
-import proton
-import random
-import string
 
 # https://stackoverflow.com/questions/2511222/efficiently-generate-a-16-character-alphanumeric-string
 def generateRandomGroupId (length=8):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 
-if len(sys.argv) != 5:
-    print("Usage: python3 image-consumer.py topic platformaddress bootstrap_port registry_port ")
-    exit()
 
 
-topic=str(sys.argv[1])
-platformaddress=str(sys.argv[2])
-bootstrap_port=str(sys.argv[3])
-registry_port=str(sys.argv[4])
-
-
-
-c = AvroConsumer({
-    'bootstrap.servers': platformaddress+':'+bootstrap_port,
-    'schema.registry.url':'http://'+platformaddress+':'+registry_port, 
-    'group.id': topic+'_'+generateRandomGroupId(4),
-    'api.version.request': True,
-    'auto.offset.reset': 'earliest'
-})
-
-
-c.subscribe([topic.upper()])
-
-print("Subscibed topics: " + str(topic))
-print("Running...")
-
-i = 0
 
 while True:
     msg = c.poll(1.0)
@@ -287,31 +287,8 @@ while True:
     outfile.close()
 
 c.close()
-import sys
-import time
-import numpy
 
-import json
 
-import gi
-
-gi.require_version('GLib', '2.0')
-gi.require_version('GObject', '2.0')
-gi.require_version('Gst', '1.0')
-gi.require_version('GstApp', '1.0')
-gi.require_version('GstVideo', '1.0')
-
-from gi.repository import Gst, GObject, GLib, GstApp, GstVideo
-
-from kafka import KafkaConsumer
-
-import ast
-import requests
-import proton
-
-import avro.schema
-from avro.io import DatumReader, BinaryDecoder
-import io
 
 
 def decode(msg_value):
@@ -427,13 +404,6 @@ while True:
 pipeline.set_state(Gst.State.NULL)
 
 
-from confluent_kafka import DeserializingConsumer
-from confluent_kafka.schema_registry import SchemaRegistryClient
-from confluent_kafka.schema_registry.avro import AvroDeserializer
-from confluent_kafka.serialization import StringDeserializer
-import requests
-import security
-
 
 def get_topic(platform_address, registry_port, platform_user, platform_password, tile, instance_type):
     """Get the Kafka topic for the given tile and instance type."""
@@ -504,34 +474,7 @@ if __name__ == '__main__':
 # Some sample code for the cosumere can be find 
 # here https://github.com/confluentinc/confluent-kafka-python/blob/master/examples/json_consumer.py
 
-from confluent_kafka import Consumer, KafkaException
-import sys
-import getopt
-import json
-import logging
-from pprint import pformat
 
-from confluent_kafka import KafkaError
-from confluent_kafka.avro import AvroConsumer
-from confluent_kafka.avro.serializer import SerializerError
-from confluent_kafka.cimpl import TopicPartition
-import sys
-import base64
-import requests
-import security
-
-#from proton.handlers import MessagingHandler
-import proton
-
-tile="1202231113220102"
-
-platformaddress = "<ip>" 
-bootstrap_port = "31090"
-registry_port =  "31081"
-
-
-platformuser = "<user>"
-platformpassword = "<password>"
 
 
 
@@ -542,24 +485,8 @@ url = "http://5gmeta-platform.eu/dataflow-api/topics/cits/query?dataSubType=jpg&
 
 # The request returns the generated topic
 topic = requests.post(url, headers=headers).text
-print(topic)
-c = AvroConsumer({
-    'bootstrap.servers': platformaddress+':'+bootstrap_port,
-    'schema.registry.url':'http://'+platformaddress+':'+registry_port, 
-    'group.id': 'group1',
-    'api.version.request': True,
-    'auto.offset.reset': 'earliest'
-})
 
-#topics = ["image"] #, "colors_filtered", "colors"]
 
-c.subscribe([topic.upper()])
-#c.subscribe(topics)
-
-print("Subscibed topics: " + str(topic))
-print("Running...")
-
-i = 0
 
 while True:
     msg = c.poll(1.0)
@@ -597,13 +524,5 @@ while True:
         print("An error decoding the message happened!")
         
     outfile.close()
-
-    # TEST https://stackoverflow.com/questions/40059654/python-convert-a-bytes-array-into-json-format/40060181
-    #print('Received message: {} \n'.format(msg.value().decode('latin-1'))) #'utf-8')))
-    # Load the JSON to a Python list & dump it back out as formatted JSON
-    # print(" \n")
-    #data = json.loads(mydata)
-    # s = json.dumps(mydata, indent=4, sort_keys=True)
-    # print(s)
 
 c.close()
