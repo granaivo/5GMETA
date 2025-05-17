@@ -25,7 +25,10 @@ dependencies = [
   "avro-python3",
   "fastavro",
   "avro_to_python",
-  "pygeotile"  
+  "pygeotile",
+  "matplotlib",
+  "folium",
+  "sqlalchemy"  
 ]
 
 classifiers = [
