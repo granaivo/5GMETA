@@ -23,25 +23,19 @@ from proton.handlers import MessagingHandler
 from proton.reactor import Container
 from pygeotile.tile import Tile
 from proton.reactor import Container
+from  py5gmeta.common import database, content, api, address, content
 
 
-import address
+
 import optparse
 import json
 import time
 import codecs
-import address
 import os
 
 import random
 import sqlalchemy as db
 import requests
-
-import optparse
-import json
-import time
-from  py5gmeta.common import database, content, api, address, content
-
 
 
 
