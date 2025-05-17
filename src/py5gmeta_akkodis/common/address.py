@@ -2,6 +2,14 @@ import os
 from py5gmeta.common import api
 
 
+def get_url(host, port, username, password, ):
+    return 'amqp://' + username + ":" + password + '@' + host + ":" + port
+
+
+def get_message_video_borker_url():
+    return get_url() + '/topic://video'
+
+
 def get_url():
     username =  os.getenv('AMQP_USER')
     password = .getenv('AMQP_PASS')
@@ -24,9 +32,3 @@ def get_message_data_address(tile, topic):
      return get_url(str(messageBroker_host), str(messageBroker_port), username,  password ) +":/topic://"+topic
 
 
-def get_url(host, port, username, password, ):
-    return 'amqp://' + username + ":" + password + '@' + host + ":" + port
-
-
-def get_message_video_borker_url():
-    return get_url() + '/topic://video'
