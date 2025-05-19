@@ -8,7 +8,7 @@ from confluent_kafka.serialization import StringDeserializer
 from confluent_kafka.avro import AvroConsumer
 from kafka import KafkaConsumer
 import statistics
-from prometheus_clientprometheus_client import start_http_server, Gauge
+
 import proton
 import gi
 from gi.repository import Gst, GObject, GLib, GstApp, GstVideo
@@ -24,10 +24,7 @@ gi.require_version('GstApp', '1.0')
 gi.require_version('GstVideo', '1.0')
 
 
-gauge = Gauge(
-    "application_latency",
-    "Application Latency."
-)
+
 
 latencies = [0,0,0,0,0,0,0,0,0,0]
 

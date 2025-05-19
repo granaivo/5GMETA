@@ -71,11 +71,12 @@ def keepAliveDataflow(db_ip,db_user,db_password,db_port,tile):
     engine = db.create_engine('mysql+pymysql://'+db_user+':'+db_password+'@'+db_ip+':'+db_port+'/5GMETA_SD', isolation_level="READ UNCOMMITTED")
     connection = engine.connect()
     metadata = db.MetaData()
-    dataflows = db.Table('extendedDataflows', metadata, autoload=True, autoload_with=engine)
-    dataflows_true = db.Table('dataflows', metadata, autoload=True, autoload_with=engine)
-    producedDataflows = db.Table('producedDataflows', metadata, autoload=True, autoload_with=engine)
+    dataflows = db.Table('extendedDataflows', metadata,  autoload_with=engine)
+    dataflows_true = db.Table('dataflows', metadata,  autoload_with=engine)
+    producedDataflows = db.Table('producedDataflows', metadata,  autoload_with=engine)
     query = db.select([dataflows])
     results = connection.execute(query).fetchall()
+
     for result in results:
         print("Sending put for: "+result["dataflowId"], flush=True)
         r = requests.put("https://"+registration_ip+":"+registration_port+ "/api/v1" + "/dataflows/"+result["dataflowId"], json = ({

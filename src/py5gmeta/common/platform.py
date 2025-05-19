@@ -2,6 +2,7 @@ from getpass import getpass
 from py5gmeta.common import api, helpers, identity
 import sys
 import re
+from prometheus_client import start_http_server, Gauge
 
 class FIVEGMETAPLATFORM:
 
@@ -17,6 +18,7 @@ class FIVEGMETAPLATFORM:
         self.username = username
         self.password = password
         self.disable_instance_api = True
+        self.gauge = Gauge( "application_latency","Application Latency.")
 
 
     def get_platform_url(self):

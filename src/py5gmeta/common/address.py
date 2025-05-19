@@ -19,7 +19,7 @@ def get_url():
     return get_amqp_broker_url(host, port, username, password)
 
 
-def get_message_data_address(tile):
+def get_message_broker_address_by_tile(tile):
     # Get Message Broker access
     service="message-broker"
     amqp_broker_host, amqp_broker_port = api.discover_sb_service(tile,service)

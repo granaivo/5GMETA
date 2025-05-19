@@ -1,18 +1,10 @@
 from __future__ import print_function
+import time
 from threading import Thread
+import requests
 from proton.handlers import MessagingHandler
 from proton.reactor import Container
-from pygeotile.tile import Tile
-from  py5gmeta.common import database, content, api, address, content
-import optparse
-import json
-import time
-import codecs
-import os
-import random
-import sqlalchemy as db
-import requests
-
+from py5gmeta.common import api, message
 
 
 class Receiver(MessagingHandler):
@@ -105,8 +97,8 @@ def send(url, topic, body, dataflowmetadata ):
         try:
             #If need to send, send message every second
             if(send):
-                content.messages_generator(1, body)
-                Container(Sender(url + ":/topic://" + topic, content.messages)).run()
+                content = message.messages_generator(1, body)
+                Container(Sender(url + ":/topic://" + topic, content)).run()
                 print("Message sent.\n")
         except KeyboardInterrupt:
             exit(1)
