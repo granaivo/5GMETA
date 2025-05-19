@@ -15,7 +15,11 @@ To get an overview of the project, read the [README](./README.md) file. Here are
 
 ## Getting started
 
-Different types of contributions are possible. 
+Different types of contributions are possible. Install the dependencies:
+
+```bash
+apt -get install gstreamer1.0-plugins-bad streamer1.0-libav python3-gst-1.0
+```
 
 ### Issues
 

@@ -1,5 +1,6 @@
 *.kate-swp
 *.swp
-__pycache__/
+*.idea
+*/__pycache__/
 
 tests/examples/tutorials-venv/

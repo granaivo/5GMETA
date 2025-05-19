@@ -1,0 +1,102 @@
+{
+	"type": "record",
+	"name": "jms",
+	"namespace": "com.datamountaineer.streamreactor.connect",
+	"fields": [
+		{
+			"name": "message_timestamp",
+			"type": [
+				"null",
+				"long"
+			],
+			"default": null
+		},
+		{
+			"name": "correlation_id",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "redelivered",
+			"type": [
+				"null",
+				"boolean"
+			],
+			"default": null
+		},
+		{
+			"name": "reply_to",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "destination",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "message_id",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "mode",
+			"type": [
+				"null",
+				"int"
+			],
+			"default": null
+		},
+		{
+			"name": "type",
+			"type": [
+				"null",
+				"string"
+			],
+			"default": null
+		},
+		{
+			"name": "priority",
+			"type": [
+				"null",
+				"int"
+			],
+			"default": null
+		},
+		{
+			"name": "bytes_payload",
+			"type": [
+				"null",
+				"bytes"
+			],
+			"default": null
+		},
+		{
+			"name": "properties",
+			"type": [
+				"null",
+				{
+					"type": "map",
+					"values": [
+						"null",
+						"string"
+					]
+				}
+			],
+			"default": null
+		}
+	],
+	"connect.name": "com.datamountaineer.streamreactor.connect.jms"
+}

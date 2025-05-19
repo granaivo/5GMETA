@@ -1,0 +1,13 @@
+{
+	"connector.class": "com.datamountaineer.streamreactor.connect.jms.source.JMSSourceConnector",
+	"connect.jms.initial.context.factory": "org.apache.activemq.jndi.ActiveMQInitialContextFactory",
+	"tasks.max": 1,
+	"connect.jms.url": "tcp://ksql.5gmeta-platform.eu:31082",
+	"connect.jms.username": "5gmeta-platform",
+	"connect.jms.connection.factory": "ConnectionFactory",
+	"connect.jms.queues": "jms-queue",
+	"connect.jms.password": "5gmeta-platform",
+	"connect.progress.enabled": "true",
+	"connect.jms.kcql": "INSERT INTO "<datatype>-<instance_type>" SELECT * FROM "<datatype>-<instance_type>" WITHTYPE TOPIC ",
+	"name": "5gmeta-cp-upload"
+}

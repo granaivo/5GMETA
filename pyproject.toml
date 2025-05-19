@@ -9,26 +9,23 @@ authors = [
 description = "A Python Library for interaction with the 5GMETA Platform"
 readme = " README.md"
 
-requires-python = ">3.9"
+requires-python = ">3.10"
 dependencies = [
-  "python3-qpid-proton",
-  "python3-avro",
-  "python3-confluent-kafka",
-  "gstreamer1.0-plugins-bad",
-  "gstreamer1.0-libav",
-  "python3-gst-1.0",
+  "python-qpid-proton",
+  "confluent-kafka",
   "kafka-python",
   "numpy",
   "requests",
   "confluent-kafka",
   "avro",
-  "avro-python3",
   "fastavro",
   "avro_to_python",
   "pygeotile",
   "matplotlib",
   "folium",
-  "sqlalchemy"  
+  "sqlalchemy",
+  "python-keycloak",
+  "prometheus-client"
 ]
 
 classifiers = [
@@ -36,13 +33,13 @@ classifiers = [
      "Operating System :: OS Independent",
 ]
 
-license = "EUPL"
+license = "EUPL-1.2"
 license-files = ["LICEN[CS]E*"]
 
 
 [project.urls]
 Homepage = "https://github.com/Akkodis/5gmeta"
-Isssues  = "https://github.com/Akkodis/issues"
+Isssues  = "https://github.com/Akkodis/5gmeta/issues"
 
 
 [build-system]
