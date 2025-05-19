@@ -1,49 +1,56 @@
+import json
+import sys
+import time
+import proton
 from confluent_kafka.admin import AdminClient, NewTopic
 import unittest
-from confluent_kafka import Producer
+from confluent_kafka import Producer, Consumer
+from confluent_kafka.avro import AvroConsumer
 
-p = Producer({'bootstrap.servers': '127.0.0.1:9092'})
-
-
-def generateRandomGroupId(length=8):
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+def delivery_report(err, msg):
+    """ Called once for each message produced to indicate delivery result.
+        Triggered by poll() or flush(). """
+    if err is not None:
+        print('Message delivery failed: {}'.format(err))
+    else:
+        print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
 
 class Kafka(unittest.TestCase):
 
     def setUp(self):
-        self.kafka_host = ""
-        self.kafka_port = ""
+        self.kafka_host = "cloudplatform.francecentral.cloudapp.azure.com"
+        self.kafka_port = "31090"
         self.admin_client = AdminClient({'bootstrap.servers': self.kafka_host + ':' + self.kafka_port})
-        self.new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in ["topic1", "topic2"]]
+
 
         self.tile = "031333123201"
         self.instance_type = "small"  # small
-        self.platformaddress = "<ip>"
+        self.platform_address = "cloudplatform.francecentral.cloudapp.azure.com"
         self.bootstrap_port = "31090"
-        self.schema_registry_port = "31081"
-        self.platform_user = "<user>"
-        self.platform_password = "<password>"
+        self.schema_registry_port = "443"
+        self.platform_user = "5gmeta-platform"
+        self.platform_password = "5gmeta-platform"
         self.group_id = "group1"
         self.topic = "5GMETA_1011_CITS_MEDIUM_34"
-
+        self.new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [self.topic]]
         self.avro = AvroConsumer({
-            'bootstrap.servers': platformaddress + ':' + bootstrap_port,
-            'schema.registry.url': 'http://' + platformaddress + ':' + schema_registry_port,
-            'group.id': topic + '_' + generateRandomGroupId(4),
+            'bootstrap.servers': self.platform_address + ':' + self.bootstrap_port,
+            'schema.registry.url': 'https://' + self.platform_address + ':' + self.schema_registry_port + '/registry/',
+            'group.id': self.topic + '_' + self.group_id,
             'api.version.request': True,
             'auto.offset.reset': 'earliest'
         })
 
-        self.avro.subscribe([topic.upper()])
-        self.p = Producer({'bootstrap.servers': '127.0.0.1:9092'})
+        self.avro.subscribe([self.topic.upper()])
+        self.p = Producer({'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090'})
 
-        print("Subscibed topics: " + str(topic))
+        print("Subscibed topics: " + str(self.topic))
         print("Running...")
 
-        i = 0
+        self.i = 0
         # Trigger any available delivery report callbacks from previous produce() calls
-        self.p.poll(0)
+        self.p.poll(1.0)
 
     def tearDown(self):
         self.avro.close()
@@ -51,38 +58,43 @@ class Kafka(unittest.TestCase):
         # callbacks to be triggered.
         self.p.flush()
 
+
+    def test_create_topics(self):
+        # Call create_topics to asynchronously create topics. A dict
+        # of <topic,future> is returned.
+        fs = self.admin_client.create_topics(self.new_topics)
+        # Wait for each operation to finish.
+        for topic, f in fs.items():
+            try:
+                f.result()  # The result itself is None
+                print("Topic {} created".format(topic))
+            except Exception as e:
+                print("Failed to create topic {}: {}".format(topic, e))
+
+
+    def test_produce(self):
+       # Asynchronously produce a message. The delivery report callback will
+       # be triggered from the call to poll() above, or flush() below, when the
+       # message has been successfully delivered or failed permanently.
+       self.p.produce(self.topic, "TESTING".encode('utf-8'), callback=delivery_report)
+
     def test_consumer(self):
         c = Consumer({
-            'bootstrap.servers': '127.0.0.1:9092',
+            'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090',
             'group.id': 'mygroup',
             'auto.offset.reset': 'earliest'
         })
 
-        c.subscribe(['mytopic'])
+        c.subscribe([self.topic])
 
-        while True:
-            msg = c.poll(1.0)
-
-            if msg is None:
-                continue
-            if msg.error():
-                print("Consumer error: {}".format(msg.error()))
-                continue
-
-            print('Received message: {}'.format(msg.value().decode('utf-8')))
+        msg = c.poll(1.0)
+        print('Received message: {}'.format(msg.value().decode('utf-8')))
 
         c.close()
 
     def test_cits_consumer(self):
         msg = self.avro.poll(1.0)
 
-        if msg is None:
-            # print("Empty msg: " + str(msg) );
-            print(".", end="", flush=True)
-            continue
-        if msg.error():
-            print("Consumer error: {}".format(msg.error()))
-            continue
         print("NEW MESSAGE")
         currentTime = time.time_ns() // 1_000_000
 
@@ -121,44 +133,7 @@ class Kafka(unittest.TestCase):
         latency2 = currentTime - origin_time
         print("LATENCY2 milliseconds")
         print(latency2)
-        '''print("Size " + str(sys.getsizeof(msg_sd.body)))
-
-        outfile = open("../output/body_"+str(i)+".txt", 'w')
-        i=i+1
-        try:
-            outfile.write(msg_sd.body)
-        except:
-            print("An error decoding the message happened!")
-
-        outfile.close()
-        '''
 
 
-    def test_create_topics(self):
-        # Call create_topics to asynchronously create topics. A dict
-        # of <topic,future> is returned.
-        fs = self.admin_client.create_topics(self.new_topics)
-        # Wait for each operation to finish.
-        for topic, f in fs.items():
-            try:
-                f.result()  # The result itself is None
-                print("Topic {} created".format(topic))
-            except Exception as e:
-                print("Failed to create topic {}: {}".format(topic, e))
-
-   def test_produce():
-       # Asynchronously produce a message. The delivery report callback will
-       # be triggered from the call to poll() above, or flush() below, when the
-       # message has been successfully delivered or failed permanently.
-       p.produce('mytopic', "TESTING".encode('utf-8'), callback=delivery_report)
-
-
-
-
-def delivery_report(err, msg):
-    """ Called once for each message produced to indicate delivery result.
-        Triggered by poll() or flush(). """
-    if err is not None:
-        print('Message delivery failed: {}'.format(err))
-    else:
-        print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
+if __name__ == '__main__':
+    unittest.main()
