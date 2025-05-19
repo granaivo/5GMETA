@@ -1,47 +1,26 @@
+from keycloak import KeycloakAuthenticationError
+
 from  py5gmeta.common import identity
 import unittest
-import requests
-
 
 class Identity(unittest.TestCase):
     def setUp(self):
-        self.genuine_username = ""
-        self.genuine_user_password = ""
-        self.rogue_user_name = ""
-        self.roque_user_password = ""
+        self.genuine_username = "5gmeta-platform"
+        self.genuine_user_password = "5gmeta-platform"
+        self.rogue_user_name = "Alice"
+        self.roque_user_password = "Alice-4gmeta"
+        self.realm_name = "5gmeta"
+        self.client_id = "5gmeta_login"
+        self.client_secret = ""
+        self.identity_url = "https://cloudplatform.francecentral.cloudapp.azure.com/identity/"
 
     def test_genuine_user_authentication(self):
-         auth_header = identity.get_header_with_token(self.genuine_username, self.genuine_user_password)
-         print(auth_header)
+        auth_headers = identity.get_header_with_token(self.identity_url, self.realm_name, self.client_id,
+                                                           self.client_secret, self.genuine_username, self.genuine_user_password)
+        print(auth_headers)
 
     def test_rogue_user_authentication(self):
-        pass
-
-
-    def test_get_auth_token(self):
-        headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        }
-        data = {
-            'grant_type': 'password',
-            'username': self.genuine_username,
-            'password': self.genuine_user_password,
-            'client_id': '5gmeta_login',
-        }
-        response = requests.post('https://5gmeta-platform.eu/identity/realms/5gmeta/protocol/openid-connect/token',
-                                 headers=headers, data=data)
-        r = response.json()
-
-        return r['access_token']
-
-    def test_get_header_with_token(self):
-        token = "Bearer " + self.test_get_auth_token()
-        headers = {
-            'Authorization': token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-
-        return headers
+        self.assertRaises(KeycloakAuthenticationError, identity.get_header_with_token(self.identity_url, self.realm_name, self.client_id,
+                                                           self.client_secret, self.rogue_user_name, self.roque_user_password) )
 
 
