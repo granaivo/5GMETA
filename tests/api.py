@@ -12,7 +12,7 @@ class APITests(unittest.TestCase):
         self.identity_url = "https://cloudplatform.francecentral.cloudapp.azure.com/identity/"
         self.headers = {'Accept' :'application/json', 'Content-Type' : 'application/json'}
         self.username = "5gmeta"
-        self.password = "5Gm3t4!"
+        self.password = "5gmeta"
         self.realm_name = "5gmeta"
         self.client_id = "5gmeta_login"
         self.client_secret = ""
@@ -29,11 +29,11 @@ class APITests(unittest.TestCase):
 
     def test_post_mec(self):
         url = self.api_end_point + '/' + self.mecid + "/nbservices/" + self.service
-        self.assertEqual(requests.post(url, data=open('nb_register_service_example.json', 'rb'), headers=self.auth_headers), "")
+        self.assertEqual(requests.post(url, data=open('../datasets/nb_register_service_example.json', 'rb'), headers=self.auth_headers), "")
 
     def test_patch_mec(self):
         url = self.api_end_point + '/' + self.mecid + "/nbservices/" + self.service
-        x = requests.patch(url, data=open('nb_update_service_example.json', 'rb'), headers=self.auth_headers)
+        x = requests.patch(url, data=open('../datasets/nb_update_service_example.json', 'rb'), headers=self.auth_headers)
         self.assertEqual(x, "")
 
 

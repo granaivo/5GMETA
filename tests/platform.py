@@ -1,10 +1,5 @@
 from unittest import TestCase
-from proton import Message
-from proton.handlers import MessagingHandler
 from proton.reactor import Container
-import optparse
-from getpass import getpass
-
 
 class Client(TestCase):
     def setUp(self):
