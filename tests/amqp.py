@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import base64
 import json
 import os
 import unittest
@@ -51,7 +52,7 @@ class AMQPTestCase(unittest.TestCase):
 
         self.amqp_server_url = address.get_amqp_broker_url(self.message_broker_host, self.message_broker_port, self.username,
                                                  self.password)
-        self.parameters = {
+        self.parameters_cits = {
             'deviceType': self.device_type,
             'serverURL': self.server_url,
             'vserverIP': self.video_broker_host,
@@ -71,17 +72,30 @@ class AMQPTestCase(unittest.TestCase):
                 with open(self.cits_json_datasets_path+ '/'+ cits_json_file) as f:
                     self.bodies.append(json.load(f))
 
+        self.images = []
+
 
     def test_get_amqp_url(self):
         self.assertEqual(address.get_amqp_broker_url(self.message_broker_host, self.message_broker_port, self.username, self.password), "amqp://5gmeta-platform:5gmeta-platform@akkodismec.francecentral.cloudapp.azure.com:30672")
 
-    def test_send(self):
+    def test_send_cits_body(self):
         #self.assertRaises(Exception, AMQP(subscription=self.topics, param=self.parameters) )
         amqp.send(self.amqp_server_url, self.topic, self.body)
 
-    def test_send_bodies(self):
+    def test_send_cits_bodies(self):
         for body in self.bodies:
-            amqp.send(self.amqp_server_url, self.topic, body)
+            content = message.messages_generator( "cits", 1,  body, self.dataflowId, tile=self.tile)
+            amqp.send(self.amqp_server_url, self.topic, content)
+
+    def test_send_png_image(self):
+        img_datasets_path = "../datasets/images"
+        img_files = [img_f for img_f in os.listdir(img_datasets_path) if img_f.endswith('.png')]
+        for img_f in img_files:
+            with open(img_datasets_path + '/' + img_f, 'rb') as f:
+                body =  base64.b64encode(f.read())
+                content  = message.messages_generator("image", 1, None, self.dataflowId, tile=self.tile, image=img_datasets_path + '/' + img_f)
+                amqp.send(self.amqp_server_url, self.topic, content)
+
 
     def test_consume(self):
         amqp.receive(self.amqp_server_url, self.topic, 10)

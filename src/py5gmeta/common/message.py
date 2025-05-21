@@ -32,27 +32,16 @@ def generate_random_group_id (length=8):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
 
 
-def messages_generator(num, msgbody):
+def messages_generator(msg_type: str, num: int, msg_body, flow_id, **kargs):
     messages = []
-    print("Sender prepare the messages... ")
-    random.seed(time.time()*1000)
-    for i in range(num):
-        props = {
-                    "dataType": "cits",
-                    "dataSubType": "cam",
-                    "dataFormat": "asn1_jer",
-                    "sourceId": 1,
-                    "locationQuadkey": "12022301011102",
-                    "timestamp": time.time()*1000,
-                    "body_size": str(sys.getsizeof(msgbody))
-                    }
-        messages.append(Message(body= msgbody, properties=props))
-        print(messages[i])
-    print("Message array done! \n")
+    if msg_type == "cits":
+        messages =  cits_messages_generator(num, kargs['tile'], msg_body, flow_id)
+    elif msg_type == "image":
+        messages = image_messages_generator(kargs['image'], num, kargs['tile'], msg_body)
     return messages
 
 
-def cits_messages_generator(num, tile, msg_body, data_flow_id):
+def cits_messages_generator(num, tile, msg_body, data_flow_id, data_format='json'):
     messages = []
     #print("Sender prepare the messages... ")
     for i in range(num):
@@ -60,14 +49,12 @@ def cits_messages_generator(num, tile, msg_body, data_flow_id):
                     "dataType": "cits",
                     "dataSubType": "cam",
                     "dataFlowId": data_flow_id,
-                    "dataFormat":"asn1_jer",
+                    "dataFormat": data_format,
                     "sourceId": 1,
                     "locationQuadkey": tile+str(i%4),
                     "body_size": str(sys.getsizeof(msg_body))
                     }
         messages.append( Message(body=msg_body, properties=props) )
-        #print(messages[i])
-    #print("Message array done! \n")
     return messages
 
 

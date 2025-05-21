@@ -84,9 +84,9 @@ def send_with_keep_alive(url, topic, body, dataflow_metadata, auth_headers ):
     thread = Thread(target=send_keep_alive)
     thread.start()
 
-def send(url, topic, body):
+#TODO add description of content
+def send(url, topic, content):
         try:
-            content = message.messages_generator(1, body)
             Container(Sender(url + ":/topic://" + topic, content)).run()
             print("Message sent.\n")
         except Exception as e:

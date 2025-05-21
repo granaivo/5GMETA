@@ -84,6 +84,8 @@ class DatabaseConnect:
         self.sensor = db.Table('sensorIdentity', self.metadata, autoload_with=self.engine)
         self.internal_sensor = db.Table('internalSensorIdentity', self.metadata, autoload_with=self.engine)
         self.producedDataflows = db.Table('producedDataflows', self.metadata, autoload_with=self.engine)
+        self.dataflows_true = db.Table('dataflows_true', self.metadata, autoload_with=self.engine)
+
 
     def insert_dataflow_localdb(self, dataflow, owner, owner_name, owner_id):
         query = db.sql.insert(self.dataflows).values(to_json(dataflow))
@@ -154,10 +156,10 @@ class DatabaseConnect:
                     }
                 }))
             if (r.status_code == 404):
-                query = db.delete(producedDataflows).where(
-                    producedDataflows.columns.producerDataflow == result["dataflowId"])
+                query = db.delete(self.producedDataflows).where(
+                    self.producedDataflows.columns.producerDataflow == result["dataflowId"])
                 self.connection.execute(query)
-                query = db.delete(dataflows_true).where(dataflows_true.columns.dataflowId == result["dataflowId"])
+                query = db.delete(self.dataflows_true).where(self.dataflows_true.columns.dataflowId == result["dataflowId"])
                 self.connection.execute(query)
             self.connection.close()
 
