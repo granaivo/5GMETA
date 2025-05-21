@@ -3,7 +3,16 @@ from keycloak import KeycloakAuthenticationError
 from  py5gmeta.common import identity
 import unittest
 
-class Identity(unittest.TestCase):
+class Identity:
+    def __init__(self):
+        self.username = ""
+        self.password = ""
+        self.client_id = ""
+        self.client_secrert = ""
+        self.url = ""
+        self.realm
+
+class IdentityTestCase(unittest.TestCase):
     def setUp(self):
         self.genuine_username = "5gmeta-platform"
         self.genuine_user_password = "5gmeta-platform"
@@ -13,6 +22,18 @@ class Identity(unittest.TestCase):
         self.client_id = "5gmeta_login"
         self.client_secret = ""
         self.identity_url = "https://cloudplatform.francecentral.cloudapp.azure.com/identity/"
+
+    def test_configure_client(self):
+        pass
+
+    def test_get_auth_token(self):
+        pass
+
+    def test_get_header_with_toke(self):
+        pass
+
+    def test_get_x_user_info(self):
+        pass
 
     def test_genuine_user_authentication(self):
         auth_headers = identity.get_header_with_token(self.identity_url, self.realm_name, self.client_id,

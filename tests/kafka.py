@@ -6,6 +6,7 @@ from confluent_kafka.admin import AdminClient, NewTopic
 import unittest
 from confluent_kafka import Producer, Consumer
 from confluent_kafka.avro import AvroConsumer
+from py5gmeta.kafka import prosumer
 
 def delivery_report(err, msg):
     """ Called once for each message produced to indicate delivery result.
@@ -34,13 +35,8 @@ class Kafka(unittest.TestCase):
         self.group_id = "group1"
         self.topic = "5GMETA_1011_CITS_MEDIUM_34"
         self.new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [self.topic]]
-        self.avro = AvroConsumer({
-            'bootstrap.servers': self.platform_address + ':' + self.bootstrap_port,
-            'schema.registry.url': 'https://' + self.platform_address + ':' + self.schema_registry_port + '/registry/',
-            'group.id': self.topic + '_' + self.group_id,
-            'api.version.request': True,
-            'auto.offset.reset': 'earliest'
-        })
+        self.registry_port = 443
+        self.consumer = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port, self.group_id, self.topic)
 
         self.avro.subscribe([self.topic.upper()])
         self.p = Producer({'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090'})
@@ -58,7 +54,6 @@ class Kafka(unittest.TestCase):
         # callbacks to be triggered.
         self.p.flush()
 
-
     def test_create_topics(self):
         # Call create_topics to asynchronously create topics. A dict
         # of <topic,future> is returned.
@@ -73,17 +68,10 @@ class Kafka(unittest.TestCase):
 
 
     def test_produce(self):
-       # Asynchronously produce a message. The delivery report callback will
-       # be triggered from the call to poll() above, or flush() below, when the
-       # message has been successfully delivered or failed permanently.
        self.p.produce(self.topic, "TESTING".encode('utf-8'), callback=delivery_report)
 
     def test_consumer(self):
-        c = Consumer({
-            'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090',
-            'group.id': 'mygroup',
-            'auto.offset.reset': 'earliest'
-        })
+        c = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port, self.group_id, self.topic)
 
         c.subscribe([self.topic])
 
