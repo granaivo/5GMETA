@@ -1,4 +1,6 @@
 from __future__ import print_function
+
+import json
 import os
 import unittest
 from py5gmeta.common import message, address, geotile, database
@@ -10,7 +12,6 @@ class AMQPTestCase(unittest.TestCase):
 
     def setUp(self):
         self.body = '{"header":{"protocolVersion":2,"messageID":2,"stationID":3907},"cam":{"generationDeltaTime":2728,"camParameters":{"basicContainer":{"stationType":5,"referencePosition":{"latitude":435549160,"longitude":103036950,"positionConfidenceEllipse":{"semiMajorConfidence":4095,"semiMinorConfidence":4095,"semiMajorOrientation":3601},"altitude":{"altitudeValue":180,"altitudeConfidence":"unavailable"}}},"highFrequencyContainer":{"basicVehicleContainerHighFrequency":{"heading":{"headingValue":1340,"headingConfidence":127},"speed":{"speedValue":618,"speedConfidence":127},"driveDirection":"unavailable","vehicleLength":{"vehicleLengthValue":42,"vehicleLengthConfidenceIndication":"unavailable"},"vehicleWidth":20,"longitudinalAcceleration":{"longitudinalAccelerationValue":161,"longitudinalAccelerationConfidence":102},"curvature":{"curvatureValue":359,"curvatureConfidence":"unavailable"},"curvatureCalculationMode":"yawRateUsed","yawRate":{"yawRateValue":1,"yawRateConfidence":"unavailable"},"accelerationControl":"00","lanePosition":-1}},"lowFrequencyContainer":{"basicVehicleContainerLowFrequency":{"vehicleRole":"default","exteriorLights":"00","pathHistory":[{"pathPosition":{"deltaLatitude":-280,"deltaLongitude":1140,"deltaAltitude":250},"pathDeltaTime":22393}]}}}}}'
-
         self.url =  ""
         self.device_type = "video_sensor"
         self.latitude = 43.295778
@@ -62,6 +63,13 @@ class AMQPTestCase(unittest.TestCase):
             'metadata': self.dataflowmetadata,
             'send': self.send
         }
+        self.bodies = []
+        self.cits_json_datasets_path = "../datasets/cits/json"
+        if not self.bodies:
+            cits_json_files = [cits_f for cits_f in os.listdir(self.cits_json_datasets_path) if cits_f.endswith('.json')]
+            for cits_json_file in cits_json_files:
+                with open(self.cits_json_datasets_path+ '/'+ cits_json_file) as f:
+                    self.bodies.append(json.load(f))
 
 
     def test_get_amqp_url(self):
@@ -70,6 +78,10 @@ class AMQPTestCase(unittest.TestCase):
     def test_send(self):
         #self.assertRaises(Exception, AMQP(subscription=self.topics, param=self.parameters) )
         amqp.send(self.amqp_server_url, self.topic, self.body)
+
+    def test_send_bodies(self):
+        for body in self.bodies:
+            amqp.send(self.amqp_server_url, self.topic, body)
 
     def test_consume(self):
         amqp.receive(self.amqp_server_url, self.topic, 10)

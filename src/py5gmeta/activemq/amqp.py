@@ -32,7 +32,6 @@ class Receiver(MessagingHandler):
         raise Exception(event.transport.condition)
 
 
-
 class Sender(MessagingHandler):
     def __init__(self, url, messages):
         super(Sender, self).__init__()
@@ -64,10 +63,11 @@ class Sender(MessagingHandler):
         raise Exception(event.transport.condition)
 
 
-
 # Send the JSON of the dataflow's metadata, and receive the dataflowId and the topic where to publish the messages
 
 def send_with_keep_alive(url, topic, body, dataflow_metadata, auth_headers ):
+    # Start sending keepalives
+    # Start publishing messages in the received topic
     dataflow_id = ""
     r = requests.post(url, json=dataflow_metadata)
     if r.status_code == 200:
@@ -85,21 +85,12 @@ def send_with_keep_alive(url, topic, body, dataflow_metadata, auth_headers ):
     thread.start()
 
 def send(url, topic, body):
-    #Start sending keepalives
-
-    # Start publishing messages in the received topic
-    while True:
         try:
-            #If need to send, send message every second
-            if send:
-                content = message.messages_generator(1, body)
-                print(content)
-                print(url)
-                Container(Sender(url + ":/topic://" + topic, content)).run()
-                print("Message sent.\n")
-        except KeyboardInterrupt:
-            exit(1)
-        time.sleep(int(1))
+            content = message.messages_generator(1, body)
+            Container(Sender(url + ":/topic://" + topic, content)).run()
+            print("Message sent.\n")
+        except Exception as e:
+            print(e)
 
 
 def receive(amqp_server_url, topic, message_to_receive):
