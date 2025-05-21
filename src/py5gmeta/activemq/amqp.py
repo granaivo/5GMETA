@@ -22,7 +22,7 @@ class Receiver(MessagingHandler):
         if self._stopping:
             return
 
-        print(event.message)
+        print(event.message.body)
         self._messages_actually_received += 1
         if self._messages_actually_received == self._messages_to_receive:
             event.connection.close()
@@ -65,39 +65,36 @@ class Sender(MessagingHandler):
 
 
 
-def sendKeepAlive(dataflowmetadata, dataflowId):
-    global send
-    while(True):
-        time.sleep(30)
-        r= api.keepAliveDataflow(dataflowmetadata,dataflowId)
-        print(r.text)
-        send = r.json()['send']
-
-
 # Send the JSON of the dataflow's metadata, and receive the dataflowId and the topic where to publish the messages
 
-def send(url, topic, body, dataflowmetadata ):
-
-    r = requests.post(url, json = dataflowmetadata)
-    if(r.status_code == 200):
+def send_with_keep_alive(url, topic, body, dataflow_metadata, auth_headers ):
+    dataflow_id = ""
+    r = requests.post(url, json=dataflow_metadata)
+    if r.status_code == 200:
         r = r.json()
-        dataflowId = r['id']
+        dataflow_id = r['id']
         topic = r['topic']
         send = r['send']
     else:
         print(r.text)
         exit()
+    def send_keep_alive():
+        api.keep_alive_dataflow(url, dataflow_metadata, dataflow_id, auth_headers)
 
-    #Start sending keepalives
-    thread = Thread(target = sendKeepAlive)
+    thread = Thread(target=send_keep_alive)
     thread.start()
 
+def send(url, topic, body):
+    #Start sending keepalives
+
     # Start publishing messages in the received topic
-    while(True):
+    while True:
         try:
             #If need to send, send message every second
-            if(send):
+            if send:
                 content = message.messages_generator(1, body)
+                print(content)
+                print(url)
                 Container(Sender(url + ":/topic://" + topic, content)).run()
                 print("Message sent.\n")
         except KeyboardInterrupt:
@@ -105,5 +102,8 @@ def send(url, topic, body, dataflowmetadata ):
         time.sleep(int(1))
 
 
-
-
+def receive(amqp_server_url, topic, message_to_receive):
+    try:
+        Container(Receiver(amqp_server_url+ ":/topic://" + topic, message_to_receive)).run()
+    except KeyboardInterrupt:
+        pass
