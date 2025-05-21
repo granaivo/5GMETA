@@ -25,7 +25,8 @@ dependencies = [
   "folium",
   "sqlalchemy",
   "python-keycloak",
-  "prometheus-client"
+  "prometheus-client",
+  "geopy"
 ]
 
 classifiers = [
