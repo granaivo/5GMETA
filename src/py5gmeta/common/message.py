@@ -1,50 +1,30 @@
 from py5gmeta.common import geotile
-
-def generate_metadata(datatype, subtype, dataformat, direction, country, latitude, longitude):
-    # Replace with your metadata
-    tile = geotile.get_tile_by_position(latitude, longitude)
-    dataflowmetadata = {
-        "dataTypeInfo": {
-            "dataType": datatype,
-            "dataSubType": subtype
-        },
-        "dataInfo": {
-            "dataFormat": dataformat,
-            "dataSampleRate": 0.0,
-            "dataflowDirection": direction,
-            "extraAttributes": None,
-        },
-        "licenseInfo": {
-            "licenseGeolimit": "europe",
-            "licenseType": "profit"
-        },
-        "dataSourceInfo": {
-            "sourceTimezone": 2,
-            "sourceStratumLevel": 3,
-            "sourceId": 1,
-            "sourceType": "vehicle",
-            "sourceLocationInfo": {
-                "locationQuadkey": tile,
-                "locationCountry": country,
-                "locationLatitude": latitude,
-                "locationLongitude": longitude
-            }
-        }
-    }
-    return dataflowmetadata
-
-
 import string
-
 from proton import Message, symbol, ulong, PropertyDict
 import base64
 import sys
 import random
 import time
 
-#messages = [Message(subject='s%d' % i, body=u'b%d' % i) for i in range(10)]
+from py5gmeta.common.database import  DataInfo, DataSourceInfo, LicenseInfo, SourceLocationInfo, DataTypeInfo, DataflowMetaData
 
-body = '{"header":{"protocolVersion":2,"messageID":2,"stationID":3907},"cam":{"generationDeltaTime":2728,"camParameters":{"basicContainer":{"stationType":5,"referencePosition":{"latitude":435549160,"longitude":103036950,"positionConfidenceEllipse":{"semiMajorConfidence":4095,"semiMinorConfidence":4095,"semiMajorOrientation":3601},"altitude":{"altitudeValue":180,"altitudeConfidence":"unavailable"}}},"highFrequencyContainer":{"basicVehicleContainerHighFrequency":{"heading":{"headingValue":1340,"headingConfidence":127},"speed":{"speedValue":618,"speedConfidence":127},"driveDirection":"unavailable","vehicleLength":{"vehicleLengthValue":42,"vehicleLengthConfidenceIndication":"unavailable"},"vehicleWidth":20,"longitudinalAcceleration":{"longitudinalAccelerationValue":161,"longitudinalAccelerationConfidence":102},"curvature":{"curvatureValue":359,"curvatureConfidence":"unavailable"},"curvatureCalculationMode":"yawRateUsed","yawRate":{"yawRateValue":1,"yawRateConfidence":"unavailable"},"accelerationControl":"00","lanePosition":-1}},"lowFrequencyContainer":{"basicVehicleContainerLowFrequency":{"vehicleRole":"default","exteriorLights":"00","pathHistory":[{"pathPosition":{"deltaLatitude":-280,"deltaLongitude":1140,"deltaAltitude":250},"pathDeltaTime":22393}]}}}}}'
+
+def generate_metadata(data_type: str, sub_type: str, data_sample_rate: float, dataformat: str, direction: str, country: str, geo_limit: str, latitude: float, longitude: float, source_time_zone: int, source_stratum_level: int, source_id: int, source_type: str):
+    # Replace with your metadata
+    tile = geotile.get_tile_by_position(latitude, longitude)
+    country = geotile.get_country_from(latitude, longitude)
+    data_type_info = DataTypeInfo(data_type, sub_type)
+    data_info = DataInfo(dataformat, data_sample_rate, direction, None)
+    license_info = LicenseInfo(country, geo_limit)
+    source_location_info = SourceLocationInfo(tile, country, latitude, longitude)
+    data_source_info = DataSourceInfo(source_time_zone, source_stratum_level, source_id, source_type, source_location_info)
+
+    return  DataflowMetaData(data_type_info, data_info, license_info, data_source_info)
+
+
+
+
+#messages = [Message(subject='s%d' % i, body=u'b%d' % i) for i in range(10)]
 
 
 # https://stackoverflow.com/questions/2511222/efficiently-generate-a-16-character-alphanumeric-string
@@ -67,30 +47,31 @@ def messages_generator(num, msgbody):
                     "body_size": str(sys.getsizeof(msgbody))
                     }
         messages.append(Message(body= msgbody, properties=props))
-        #print(messages[i])
+        print(messages[i])
     print("Message array done! \n")
+    return messages
 
 
-def cits_messages_generator(num, tile, msgbody=body, dataflowId=1):
+def cits_messages_generator(num, tile, msg_body, data_flow_id):
     messages = []
     #print("Sender prepare the messages... ")
     for i in range(num):
         props = {
                     "dataType": "cits",
                     "dataSubType": "cam",
-                    "dataFlowId": dataflowId,
+                    "dataFlowId": data_flow_id,
                     "dataFormat":"asn1_jer",
                     "sourceId": 1,
                     "locationQuadkey": tile+str(i%4),
-                    "body_size": str(sys.getsizeof(msgbody))
+                    "body_size": str(sys.getsizeof(msg_body))
                     }
-        messages.append( Message(body=msgbody, properties=props) )
+        messages.append( Message(body=msg_body, properties=props) )
         #print(messages[i])
     #print("Message array done! \n")
     return messages
 
 
-def image_messages_generator(image, num, tile, msgbody=None ):
+def image_messages_generator(image, num, tile, msgbody ):
     messages = []
     if not msgbody :
         with open(image, "rb") as f:

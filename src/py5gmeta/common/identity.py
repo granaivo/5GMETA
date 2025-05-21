@@ -20,3 +20,8 @@ def get_header_with_token(url, realm_name, client_id, client_secret, username, p
     }
 
     return headers
+
+def get_x_user_info(url, realm_name, client_id, client_secret, username, password):
+    client = configure_client(url, realm_name, client_id, client_secret)
+    token = client.token(username, password)
+    return client.userinfo(token['access_token'])

@@ -4,7 +4,7 @@ import sys
 import re
 from prometheus_client import start_http_server, Gauge
 
-class FIVEGMETAPLATFORM:
+class FiveGMetaPlatform:
 
     def __init__(self, platform_url, amqp_user, amqp_password, bootstrap_port, registry_port, realm_name, client_id, client_secret, username, password):
         self.platform_url = platform_url

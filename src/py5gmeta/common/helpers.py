@@ -104,7 +104,9 @@ def get_topics(url, auth_header, username,  choice,  disable_instance_api, tiles
                                 f"Please enter the instance type for '{datatype}' pipeline in tile {tile}: ")
                             if instance_type not in avalaible_types:
                                 print(f"There is no '{instance_type}' instance type in tile {tile}")
-                        data = '{"username": "' + username + '", "datatype": "' + datatype + '", "instance_type": "' + instance_type + '"}'
+                        data = '{"username": "' + username + '", "datatype": "' + datatype + '", "instance_type": "' + instance_type + '", }'
+                        #TODO fix this
+                        data['X_Userinfo'] = "username"
                         instance = api.request_instance(url, auth_header, mec_id, data)
                         try:
                             instance_id = instance['instance_id']
