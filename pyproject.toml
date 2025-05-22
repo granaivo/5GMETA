@@ -1,5 +1,5 @@
 [project]
-name = "py5gmeta_akkodis"
+name = "py5gmeta"
 version = "0.0.1"
 authors = [
   { name="Djibrilla Amadou Kountche", email="5gmeta@akkodis.com"}
