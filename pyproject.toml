@@ -1,14 +1,11 @@
 [project]
 name = "py5gmeta_akkodis"
 version = "0.0.1"
-
 authors = [
   { name="Djibrilla Amadou Kountche", email="5gmeta@akkodis.com"}
 ]
-
 description = "A Python Library for interaction with the 5GMETA Platform"
-readme = "README.md"
-
+readme = {"file" = "README.md", "content-type" = "text/markdown"}
 requires-python = ">3.10"
 dependencies = [
   "python-qpid-proton",
@@ -28,15 +25,12 @@ dependencies = [
   "prometheus-client",
   "geopy",
 ]
-
 classifiers = [
      "Programming Language :: Python :: 3",
      "Operating System :: OS Independent",
 ]
-
 license = "EUPL-1.2"
 license-files = ["LICEN[CS]E*"]
-
 
 [project.urls]
 Homepage = "https://github.com/Akkodis/5gmeta"
