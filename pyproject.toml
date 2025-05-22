@@ -7,7 +7,7 @@ authors = [
 ]
 
 description = "A Python Library for interaction with the 5GMETA Platform"
-readme = " README.md"
+readme = "./README.md"
 
 requires-python = ">3.10"
 dependencies = [
@@ -26,7 +26,7 @@ dependencies = [
   "sqlalchemy",
   "python-keycloak",
   "prometheus-client",
-  "geopy"
+  "geopy",
 ]
 
 classifiers = [
@@ -42,6 +42,11 @@ license-files = ["LICEN[CS]E*"]
 Homepage = "https://github.com/Akkodis/5gmeta"
 Isssues  = "https://github.com/Akkodis/5gmeta/issues"
 
+[project.optional-dependencies]
+gi = [
+   "pycairo",
+  "pygobject"
+]
 
 [build-system]
 requires = ["hatchling >= 1.26"]
