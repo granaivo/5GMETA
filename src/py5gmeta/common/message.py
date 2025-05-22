@@ -54,16 +54,18 @@ def cits_messages_generator(num, tile, msg_body, data_flow_id, data_format='json
                     "locationQuadkey": tile+str(i%4),
                     "body_size": str(sys.getsizeof(msg_body))
                     }
-        messages.append( Message(body=msg_body, properties=props) )
+        message = Message(body=msg_body, properties=props)
+        print(message)
+        messages.append( message )
     return messages
 
 
-def image_messages_generator(image, num, tile, msgbody ):
+def image_messages_generator(image, num, tile, msg_body ):
     messages = []
-    if not msgbody :
+    if not msg_body :
         with open(image, "rb") as f:
-            msgbody = base64.b64encode(f.read())
-    print("Size of the image: " + str(sys.getsizeof(msgbody)))
+            msg_body = base64.b64encode(f.read())
+    print("Size of the image: " + str(sys.getsizeof(msg_body)))
     print("Sender prepare the messages... ")
     for i in range(num):
         props = {
@@ -74,7 +76,7 @@ def image_messages_generator(image, num, tile, msgbody ):
                     "body_size": str(sys.getsizeof(msgbody))
                 }
         messages.append( Message(body=msgbody, properties=props) )
-        #print(messages[i])
+        print(messages[i])
     print("Message array done! \n")
     return messages
 

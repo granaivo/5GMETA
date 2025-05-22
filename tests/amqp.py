@@ -3,6 +3,7 @@ from __future__ import print_function
 import base64
 import json
 import os
+import random
 import unittest
 from py5gmeta.common import message, address, geotile, database
 from py5gmeta.activemq import amqp
@@ -83,18 +84,22 @@ class AMQPTestCase(unittest.TestCase):
         amqp.send(self.amqp_server_url, self.topic, self.body)
 
     def test_send_cits_bodies(self):
+        i = 0
         for body in self.bodies:
-            content = message.messages_generator( "cits", 1,  body, self.dataflowId, tile=self.tile)
-            amqp.send(self.amqp_server_url, self.topic, content)
+            i = i + 1
+            content = message.messages_generator( "cits", 1,  body, ++i, tile=self.tile)
+            amqp.send(self.amqp_server_url, self.topic+'-cits', content)
 
     def test_send_png_image(self):
         img_datasets_path = "../datasets/images"
         img_files = [img_f for img_f in os.listdir(img_datasets_path) if img_f.endswith('.png')]
+        i = 0
         for img_f in img_files:
+            i = i + 1
             with open(img_datasets_path + '/' + img_f, 'rb') as f:
                 body =  base64.b64encode(f.read())
-                content  = message.messages_generator("image", 1, None, self.dataflowId, tile=self.tile, image=img_datasets_path + '/' + img_f)
-                amqp.send(self.amqp_server_url, self.topic, content)
+                content  = message.messages_generator("image", 1, None, i, tile=self.tile, image=img_datasets_path + '/' + img_f)
+                amqp.send(self.amqp_server_url, self.topic+ '-image', content)
 
 
     def test_consume(self):
