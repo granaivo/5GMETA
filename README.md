@@ -166,16 +166,16 @@ The [5GMETA](https://cordis.europa.eu/project/id/957360) platform has 3 main com
 
 This section presents the repositories of the main modules of the [5GMETA](https://cordis.europa.eu/project/id/957360) Platform orgasined by platform components: Cloud, MEC and Sensors and Devices.
 
-| Platform Component      | Module                                                                                                                                                | Description                                                                                                                                                                                                                                                             |
-|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Cloud Platform](https://github.com/Akkodis/cloud-platform/blob/main/README.md)      | [An  API server](https://github.com/Akkodis/cloud-platform/tree/main/src/apiserver)                                                             | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.      |                                                             
-|                         | [identity](https://www.keycloak.org/)                                                                                                                 | Conntains the implementation of the Identity and Access Management using  Keycloak and the user information manager.                                                                                                                                                    |
-|                         | [dashboard](https://superset.apache.org/)                                                                                                             | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                         |
-|                         | [Apache Kafka](https://github.com/Akkodis/cloud-platform/blob/main/deploy/helm/cloud-platform-chart/charts/confluentic-apachekafka-chart/README.adoc) | C-ITS ata exchange.                                                                                                                                                                                                                                                     |
-| [MEC Platform](https://github.com/Akkodis/mec-platform/blob/main/README.md)        | [message-data-broker](https://github.com/Akkodis/message-data-broker)                                                                                 | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                          |
-|                         | [An API server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver)                                                                 | Contains the API to manage the Edge Instance and Registration.                                                                                                                                                                                                          |
-|                         | [video-stream-broker](https://github.com/Akkodis/video-stream-broker)                                                                                 | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.                                                                                                    |
-| [Sensors and Devices](https://github.com/Akkodis/sensors-and-devices/blob/main/README.md) |                                                                                                                                                       | Contains a set of Vagrant files and Python codes to test a vehicle                                                                                                                                                                                                      |
+| Platform Component      | Module                                                                                                                                                                                | Description                                                                                                                                                                                                                                                             |
+|-------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Cloud Platform](https://github.com/Akkodis/cloud-platform/blob/main/README.md)      | [An  API server](https://github.com/Akkodis/cloud-platform/tree/main/src/apiserver)                                                                                                   | This API is the central access point to request to the different MECs that are part of the platform to deploy instances on them depending on instancetype and datatype. This new apiserver is combines the discover, dataflows nd license apis is a single server.      |                                                             
+|                         | [identity](https://www.keycloak.org/)                                                                                                                                                 | Conntains the implementation of the Identity and Access Management using  Keycloak and the user information manager.                                                                                                                                                    |
+|                         | [dashboard](https://superset.apache.org/)                                                                                                                                             | The main objective of the dashboard is to provide a graphical interface to the data consumers allowing them to benefit from the 5GMETA platform features that are otherwise only accessible using API requests.                                                         |
+|                         | [Modified version of Confluentinc Kafka](https://github.com/Akkodis/cloud-platform/blob/main/deploy/helm/cloud-platform-chart/charts/confluentic-apachekafka-chart/README.adoc) | C-ITS ata exchange.                                                                                                                                                                                                                                                     |
+| [MEC Platform](https://github.com/Akkodis/mec-platform/blob/main/README.md)        | [message-data-broker](https://github.com/Akkodis/message-data-broker)                                                                                                                 | Contains an ActiveMQ message broker to be deployed in the MEC.                                                                                                                                                                                                          |
+|                         | [An API server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver)                                                                                                 | Contains the API to manage the Edge Instance and Registration.                                                                                                                                                                                                          |
+|                         | [video-stream-broker](https://github.com/Akkodis/video-stream-broker)                                                                                                                 | Provides the modules to push a video stream to the MEC infrastructure and how the Broker performs the signalling and the streaming of Video flows in a standard way.                                                                                                    |
+| [Sensors and Devices](https://github.com/Akkodis/sensors-and-devices/blob/main/README.md) |                                                                                                                                                                                       | Contains a set of Vagrant files and Python codes to test a vehicle                                                                                                                                                                                                      |
 
 
 ### CLOUD Platform  <a name="cloud-platform"></a>
@@ -192,9 +192,9 @@ Illustration of the Cloud Platform
 ### Cloud Services shortcuts
 
 The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides various building blocks that developers can use to develop CCAM applications on top of the platform.
-These building blocks include Identity, Discovery, Dataflow, Instance Type, License, Data Gateway which can be used as follows:
+These building blocks include Identity, an API server ( for Discovery, Dataflow, Instance Type, License) accessible through the APISIX Gateway which can be used as follows:
 
-1.	[API Server](https://github.com/Akkodis/discovery): This building block enables developers to browse available MECs, locations, and tile coverage to select the desired locations, Dataflows and Licenses.
+1.	[API Server](https://github.com/Akkodis/cloud-platform/tree/main/src/apiserver): This building block enables developers to browse available MECs, locations, and tile coverage to select the desired locations, Dataflows and Licenses.
 2.	[Identity](https://www.keycloak.org/): Developers can use this building block to retrieve the OpenID configuration and request access tokens to authenticate API requests.
 3.	[Dashboard](https://superset.apache.org/)
 
@@ -219,9 +219,7 @@ MEC Platform
 
 ### Sensors and Devices <a name="sensors-and-devices"></a>
 
-The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to register and manage data flows to start sending Data to the platform, these building blocks include Discovery and Registration as described below.
-
-1.	[Edge API Server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver):
+The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to register and manage data flows to start sending Data to the platform, these building blocks include Discovery and Registration as described below. [A unique API Server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver) allows:
 - The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
 - This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
 
@@ -284,13 +282,13 @@ The 5GMETA Demonstrator is accessible using the following URLs. To access this d
 
 **APIs:**
 
-- Cloud Platform API server  UI: [https://cloudplatform.francecentral.cloudapp.azure.com/api/v1/ui/](https://cloudplatform.francecentral.cloudapp.azure.com/)
+- Swagger UI of the Cloud Platform API server: [https://cloudplatform.francecentral.cloudapp.azure.com/api/v1/ui/](https://cloudplatform.francecentral.cloudapp.azure.com/api/vi/ui/)
 **Kafka Platform:**
 
 - Brokers (Bootstrap): cloudplatform.francecentral.cloudapp.azure.com:31090, cloudplatform.francecentral.cloudapp.azure.com:31091, cloudplatform.francecentral.cloudapp.azure.com:31092
 - Registry: [https://cloudplatform.francecentral.cloudapp.azure.com/registry/](https://cloudplatform.francecentral.cloudapp.azure.com/registry/)
 - KSQLDB: [https://cloudplatform.francecentral.cloudapp.azure.com/ksql/](https://cloudplatform.francecentral.cloudapp.azure.com/ksql/)
-- Kafka UI: [https://cloudplatform.francecentral.cloudapp.azure.com/registry/kafka-ui/](https://cloudplatform.francecentral.cloudapp.azure.com/kafka-ui/)
+- Kafka UI: [https://cloudplatform.francecentral.cloudapp.azure.com/kafka-ui/](https://cloudplatform.francecentral.cloudapp.azure.com/kafka-ui/)
 
 **Other services:**
 
@@ -302,10 +300,9 @@ The 5GMETA Demonstrator is accessible using the following URLs. To access this d
 
 After a successful deployment, the instance of the MEC Platform is accessible using the following URLs. The different services can be accessed in the next ports:
 
-- OSM UI in port [https://akkodismec.francecentral.cloudapp.azure.com](https://akkodismec.francecentral.cloudapp.azure.com)
-- OSM API (Orchestration API) in port https://akkodismec.francecentral.cloudapp.azure.com
-- Grafana UI in port [https://akkodismec.francecentral.cloudapp.azure.com/grafana/](https://akkodismec.francecentral.cloudapp.azure.com)
-- 5GMETA MEC Platform  API [https://akkodismec.francecentral.cloudapp.azure.com/api/v1/](https://akkodismec.francecentral.cloudapp.azure.com/api/v1/)
+- ETSI OSM UI [https://akkodismec.francecentral.cloudapp.azure.com](https://akkodismec.francecentral.cloudapp.azure.com)
+- Grafana UI of the MEC Platform  [https://akkodismec.francecentral.cloudapp.azure.com/grafana/](https://akkodismec.francecentral.cloudapp.azure.com)
+- Swagger UI of the MEC Platform  API server [https://akkodismec.francecentral.cloudapp.azure.com/api/v1/ui/](https://akkodismec.francecentral.cloudapp.azure.com/api/v1/ui/)
 
 
 ## Credits <a name="credits"></a>
@@ -339,17 +336,10 @@ Contributions are welcome :blush: See [how to contribute](./CONTRIBUTING.md).
 ## Conclusion and Roadmap <a name="conclusions"></a>
 
 This document describes several aspects of 5GMETA Platform including its architecture and deployment in development environments.
-The reader is invited to visit the following website for more details about the H2020 5GMETA project:
-
-- https://cordis.europa.eu/project/id/957360
-
-In terms of roadmap, we are working to improve the Platform. These modifications will be done:
-- Upgrade and various improvements of the Python projects are needed (APIs)
-- Upgrade of the Angular project is needed
-- Upgrade of the Java project "User Business Information" is needed
+The reader is invited to visit the following website for more details about the H2020 5GMETA project: https://cordis.europa.eu/project/id/957360
 
 
-## Cite this Work <a name="citethiswork"></a>
+## Papers published during the project <a name="citethiswork"></a>
 
 1. Apruzzese, Michela, et al. Connecting Data Providers with Data Consumers: the 5GMETA Data Monetisation Framework. 2023 IEEE 47th Annual Computers, Software, and Applications Conference (COMPSAC). IEEE, 2023.
 2. Mogollón, Felipe, et al. "Benchmarking 5G MEC and Cloud infrastructures for planning IoT messaging of CCAM data." 2023 IEEE 26th International Conference on Intelligent Transportation Systems (ITSC). IEEE, 2023.
