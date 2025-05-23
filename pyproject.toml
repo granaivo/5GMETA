@@ -6,7 +6,7 @@ authors = [
 ]
 description = "A Python Library for interaction with the 5GMETA Platform"
 readme = {"file" = "README.md", "content-type" = "text/markdown"}
-requires-python = ">3.10"
+requires-python = "3.9"
 dependencies = [
   "python-qpid-proton",
   "confluent-kafka",
@@ -24,6 +24,7 @@ dependencies = [
   "python-keycloak",
   "prometheus-client",
   "geopy",
+  "ksql"
 ]
 classifiers = [
      "Programming Language :: Python :: 3",
