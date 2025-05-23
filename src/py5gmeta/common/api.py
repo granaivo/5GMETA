@@ -1,7 +1,10 @@
+import json
+
 import requests
 import sys
-from py5gmeta.common import identity
+from py5gmeta.common import database
 
+#TODO import logging and use a logger instead of print
 
 def get_types(url:str, auth_header: dict, mec_id:int):
     """ Get instance Types available on the MEC server"""
@@ -16,10 +19,10 @@ def request_instance(url:str, auth_header: dict, mec_id: int, data):
     """ Get instance Types available on the MEC server"""
     try:
         #auth_header['Content-Type'] = 'application/json'
-        r = requests.post(url + "/mecs/" + str(mec_id) + "/instances/", headers=auth_header, data=data)
+        r = requests.post(url + "/mecs/" + str(mec_id) + "/instances", headers=auth_header, data=data)
         r.raise_for_status()
         json_response = r.json()
-        
+        print(json_response)
         return json_response
     except requests.exceptions.HTTPError as err:
 #        print(f"{err}")
@@ -40,11 +43,11 @@ def get_topic(url: str, auth_headers: dict):
         print(e)
     return topic
 
-def get_datatype_from_tile(url, auth_header, tile):
+def get_datatype_from_tile(url, auth_header, tile: int):
     """ Get dataflow using a tile """
     try:
 
-        datatypes = requests.get(url + "/datatypes/" + tile, headers=auth_header)
+        datatypes = requests.get(url + "/datatypes/" + str(tile), headers=auth_header)
         if datatypes.status_code == 500:
             sys.exit("Error getting datatypes. Try again.")
         else:
@@ -63,6 +66,7 @@ def request_recource(url, endpoint, auth_header, tile, data_type, sub_type,  ins
                 sys.exit("Error requesting topics. Try again.")
             else:
                 topic=answer.text
+                print(topic)
                 return topic
     except requests.exceptions.RequestException as err:
         print(f"{err}")
@@ -82,6 +86,7 @@ def get_id_properties(url, auth_header, mec_id):
         r = requests.get(url + "/dataflows/" + str(mec_id) , headers=auth_header)
         r.raise_for_status()
         properties = r.json()
+        print(properties)
         return properties
     except requests.exceptions.RequestException as err:
 #        print(f"{err}")
@@ -133,8 +138,8 @@ def register(url, dataflow_metadata, tile, auth_headers, x_user_info=""):
         print(service_name+" service not found")
         return "",-1
         #exit(-1)
-    json = dataflow_metadata
-    json['X_UserInfo'] = x_user_info
+    json = database.to_json(dataflow_metadata)
+    auth_headers['X_UserInfo'] = x_user_info
     r = requests.post("https://" + str(registration_host) + "/api/v1/dataflows/", json = json)
     r=r.json()
     dataflow_id = r['id']
@@ -145,7 +150,9 @@ def register(url, dataflow_metadata, tile, auth_headers, x_user_info=""):
 
 # This method will update dataflow Info in order to tell infrastructure that given dataflow is still available
 def keep_alive_dataflow(url, dataflow_metadata, dataflow_id, auth_headers):
-    tile=dataflow_metadata["dataSourceInfo"]["sourceLocationInfo"]["locationQuadkey"]
+    json_d_flows = database.to_json(dataflow_metadata)
+    json_d_flows = json.loads(json_d_flows)
+    tile=json_d_flows["dataSourceInfo"]["sourceLocationInfo"]["locationQuadkey"]
     registration_host, registration_port = discover_sb_service(url, tile,"registration-api", auth_headers)
-    r = requests.put("https://" + str(registration_host) + "/api/v1/dataflows/"+str(dataflow_id), json = (dataflow_metadata))
+    r = requests.put("https://" + str(registration_host) + "/api/v1/dataflows/"+str(dataflow_id), json = database.to_json( dataflow_metadata))
     return r

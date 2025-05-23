@@ -14,10 +14,12 @@ def to_json(model):
 def json_name(model: dict):
     dikt = {}
     for k, v in model.items():
-        name = ""
-        for x in k.split('_'):
-            name = name + x.capitalize()
-        k = name
+        words = k.split('_')
+        word = ""
+        if len(words) > 1:  word = words.pop(0)
+        for x in words:
+            word = word + x.capitalize()
+        k = word
         dikt[k] = v
     return dikt
 
@@ -30,9 +32,9 @@ class Sensor:
 class SourceLocationInfo:
     def __init__(self, location_quad_key: int, country: str, latitude: float, longitude: float ):
         self.location_quad_key = location_quad_key
-        self.country = country
-        self.latitude = latitude
-        self.longitude = longitude
+        self.location_country = country
+        self.location_latitude = latitude
+        self.location_longitude = longitude
 
 class DataSourceInfo:
     def __init__(self, source_time_zone: int, source_stratum_level: int, source_id: int, source_type: str, source_location_info: SourceLocationInfo ):
@@ -155,11 +157,11 @@ class DatabaseConnect:
                         }
                     }
                 }))
-            if (r.status_code == 404):
+            if r.status_code == 404:
                 query = db.delete(self.producedDataflows).where(
-                    self.producedDataflows.columns.producerDataflow == result["dataflowId"])
+                    [self.producedDataflows.columns.producerDataflow] == result["dataflowId"])
                 self.connection.execute(query)
-                query = db.delete(self.dataflows_true).where(self.dataflows_true.columns.dataflowId == result["dataflowId"])
+                query = db.delete(self.dataflows_true).where([self.dataflows_true.columns.dataflowId] == result["dataflowId"])
                 self.connection.execute(query)
             self.connection.close()
 

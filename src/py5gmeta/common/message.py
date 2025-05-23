@@ -1,12 +1,12 @@
-from py5gmeta.common import geotile
-import string
-from proton import Message, symbol, ulong, PropertyDict
 import base64
-import sys
 import random
-import time
+import string
+import sys
+from proton import Message
 
-from py5gmeta.common.database import  DataInfo, DataSourceInfo, LicenseInfo, SourceLocationInfo, DataTypeInfo, DataflowMetaData
+from py5gmeta.common import geotile
+from py5gmeta.common.database import DataInfo, DataSourceInfo, LicenseInfo, SourceLocationInfo, DataTypeInfo, \
+    DataflowMetaData
 
 
 def generate_metadata(data_type: str, sub_type: str, data_sample_rate: float, dataformat: str, direction: str, country: str, geo_limit: str, latitude: float, longitude: float, source_time_zone: int, source_stratum_level: int, source_id: int, source_type: str):
@@ -21,16 +21,9 @@ def generate_metadata(data_type: str, sub_type: str, data_sample_rate: float, da
 
     return  DataflowMetaData(data_type_info, data_info, license_info, data_source_info)
 
-
-
-
-#messages = [Message(subject='s%d' % i, body=u'b%d' % i) for i in range(10)]
-
-
 # https://stackoverflow.com/questions/2511222/efficiently-generate-a-16-character-alphanumeric-string
 def generate_random_group_id (length=8):
     return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
-
 
 def messages_generator(msg_type: str, num: int, msg_body, flow_id, **kargs):
     messages = []
@@ -73,9 +66,9 @@ def image_messages_generator(image, num, tile, msg_body ):
                     "dataSubType": "jpg",
                     "sourceId": "v"+str(i),
                     "locationQuadkey": tile+str(i%4),
-                    "body_size": str(sys.getsizeof(msgbody))
+                    "body_size": str(sys.getsizeof(msg_body))
                 }
-        messages.append( Message(body=msgbody, properties=props) )
+        messages.append( Message(body=msg_body, properties=props) )
         print(messages[i])
     print("Message array done! \n")
     return messages

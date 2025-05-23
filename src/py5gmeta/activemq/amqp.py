@@ -1,10 +1,9 @@
 from __future__ import print_function
-import time
 from threading import Thread
 import requests
 from proton.handlers import MessagingHandler
 from proton.reactor import Container
-from py5gmeta.common import api, message
+from py5gmeta.common import api
 
 
 class Receiver(MessagingHandler):
