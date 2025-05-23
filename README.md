@@ -99,7 +99,7 @@ Procedure to instantiate a Low Latency Data service
 
 **Geographic Data Tiles** are a way of organizing and distributing large datasets of geographic information, such as satellite imagery or digital maps. **Each tile represents a specific geographic area**, and the data within each tile is typically organized into a regular grid or matrix. By dividing data into tiles, it becomes easier to manage and distribute large datasets, as users can selectively download only the tiles they need.
 
-In this consuming guide file, we provide information about the geographic areas covered by our dataset tiles [Datasets available within tiles](./tests/datasets/README.md) , along with instructions on how to access and use the data. By using tiles to organize and distribute our data, we aim to make it more accessible and easier to use for a wide range of applications.
+In this consuming guide file, we provide information about the geographic areas covered by our dataset tiles [Datasets available within tiles](./datasets/README.md) , along with instructions on how to access and use the data. By using tiles to organize and distribute our data, we aim to make it more accessible and easier to use for a wide range of applications.
 
 ### Datatypes
 
@@ -188,7 +188,6 @@ This section presents the repositories of the main modules of the [5GMETA](https
 Illustration of the Cloud Platform
 </p>
 
-
 ### Cloud Services shortcuts
 
 The [5GMETA](https://cordis.europa.eu/project/id/957360) platform provides various building blocks that developers can use to develop CCAM applications on top of the platform.
@@ -221,7 +220,7 @@ MEC Platform
 
 The 5GMETA platform exposes a set of APIs for Sensor&Devices developers to register and manage data flows to start sending Data to the platform, these building blocks include Discovery and Registration as described below. [A unique API Server](https://github.com/Akkodis/mec-platform/tree/main/src/edge-apiserver) allows:
 - The building block allows Sensors and Devices developers to discover available MECs and their locations based on their geographical location and tile coverage to be forwarded to the nearest MEC to register your dataflow.
-- This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether or not there is a consumer listening for that type of data.
+- This building block allows developers to register a data flow by providing metadata related to the data flow. The output of this method is a JSON containing the ID of the generated data flow, the topic where to publish, and a Boolean indicating whether there is a consumer listening for that type of data.
 
 Once a consumer connects to the data registered, the 5GMETA platform will update the Boolean value in order to start producing data to the connected parties. This will trigger a keepalive mechanism to determine which data flows are still active. The output of this method is the same information retrieved at the registration, including the ID of the data flow and its metadata.
 
