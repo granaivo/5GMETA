@@ -3,7 +3,6 @@ import logging
 from urllib.parse import scheme_chars
 from ksql import KSQLAPI
 from matplotlib import use
-from numpy import source
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -63,7 +62,7 @@ def create_datatype_connector( client, datatype, name="JMS_SOURCE", activemq_url
                 #"'value.converter.enhanced.avro.schema.support'= 'true',\n" \
                 #"'value.converter'= 'io.confluent.connect.avro.AvroConverter',\n" \
                 #"'key.converter'= 'org.apache.kafka.connect.storage.StringConverter'\n" \
-    client.ksql( get_connector() )
+    client.ksql( get_connector(name, username, password, activemq_url, datatype) )
 
 # SINK: from Kafka to MEC (ActiveMQ)
 def create_sink_messages_connector( source_topic="event", dest_topic="event", name="JMS_SINK", activemq_url = "tcp://192.168.15.181:61616", amqp_user, amqp_password ):

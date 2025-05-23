@@ -1,12 +1,12 @@
 import json
 import sys
 import time
-import proton
-from confluent_kafka.admin import AdminClient, NewTopic
 import unittest
-from confluent_kafka import Producer, Consumer
-from confluent_kafka.avro import AvroConsumer
+import proton
+from confluent_kafka import Producer
+from confluent_kafka.admin import AdminClient, NewTopic
 from py5gmeta.kafka import prosumer
+
 
 def delivery_report(err, msg):
     """ Called once for each message produced to indicate delivery result.
@@ -17,14 +17,12 @@ def delivery_report(err, msg):
         print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
 
 
-class Kafka(unittest.TestCase):
+class KafkaTestCase(unittest.TestCase):
 
     def setUp(self):
         self.kafka_host = "cloudplatform.francecentral.cloudapp.azure.com"
         self.kafka_port = "31090"
         self.admin_client = AdminClient({'bootstrap.servers': self.kafka_host + ':' + self.kafka_port})
-
-
         self.tile = "031333123201"
         self.instance_type = "small"  # small
         self.platform_address = "cloudplatform.francecentral.cloudapp.azure.com"
@@ -37,9 +35,8 @@ class Kafka(unittest.TestCase):
         self.new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [self.topic]]
         self.registry_port = 443
         self.consumer = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port, self.group_id, self.topic)
-
-        self.avro.subscribe([self.topic.upper()])
-        self.p = Producer({'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090'})
+        self.consumer.subscribe([self.topic.upper()])
+        self.producer = Producer({'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090'})
 
         print("Subscibed topics: " + str(self.topic))
         print("Running...")
@@ -49,10 +46,10 @@ class Kafka(unittest.TestCase):
         self.p.poll(1.0)
 
     def tearDown(self):
-        self.avro.close()
+        self.consumer.close()
         # Wait for any outstanding messages to be delivered and delivery report
         # callbacks to be triggered.
-        self.p.flush()
+        self.producer.flush()
 
     def test_create_topics(self):
         # Call create_topics to asynchronously create topics. A dict
@@ -68,34 +65,23 @@ class Kafka(unittest.TestCase):
 
 
     def test_produce(self):
-       self.p.produce(self.topic, "TESTING".encode('utf-8'), callback=delivery_report)
+       self.producer.produce(self.topic, "TESTING".encode('utf-8'), callback=delivery_report)
 
     def test_consumer(self):
-        c = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port, self.group_id, self.topic)
-
-        c.subscribe([self.topic])
-
-        msg = c.poll(1.0)
+        self.consumer.subscribe([self.topic])
+        msg = self.consumer.poll(1.0)
         print('Received message: {}'.format(msg.value().decode('utf-8')))
 
-        c.close()
 
     def test_cits_consumer(self):
-        msg = self.avro.poll(1.0)
-
+        msg = self.consumer.poll(1.0)
         print("NEW MESSAGE")
         currentTime = time.time_ns() // 1_000_000
-
         sys.stderr.write('\n%% %s [%d] at offset %d with key %s:\n\n' %
                          (msg.topic(), msg.partition(), msg.offset(), str(msg.key())))
-
         # The AVRO Message here in mydata
         mydata = msg.value()  # .decode('latin-1') #.replace("'", '"')
-        # print( "Message: " + str(mydata))
-        # print(mydata['PROPERTIES'])
-
-        # The QPID proton message: this is the message sent from the S&D to the MEC
-        # print(mydata)
+        print(mydata)
         raw_sd = mydata['BYTES_PAYLOAD']
         msg_sd = proton.Message()
         proton.Message.decode(msg_sd, raw_sd)

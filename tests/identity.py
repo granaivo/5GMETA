@@ -1,5 +1,4 @@
 from keycloak import KeycloakAuthenticationError
-
 from  py5gmeta.common import identity
 import unittest
 
@@ -10,7 +9,7 @@ class Identity:
         self.client_id = ""
         self.client_secrert = ""
         self.url = ""
-        self.realm
+        self.realm = "5gmeta"
 
 class IdentityTestCase(unittest.TestCase):
     def setUp(self):
@@ -43,5 +42,3 @@ class IdentityTestCase(unittest.TestCase):
     def test_rogue_user_authentication(self):
         self.assertRaises(KeycloakAuthenticationError, identity.get_header_with_token(self.identity_url, self.realm_name, self.client_id,
                                                            self.client_secret, self.rogue_user_name, self.roque_user_password) )
-
-

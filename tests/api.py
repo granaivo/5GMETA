@@ -37,10 +37,10 @@ class APITestCase(unittest.TestCase):
         self.sub_type = "cam"
         self.data_type = "cits"
         self.instance_type = "noinstance"
-        self.tile = "123456789"
+        self.tile = 123456789
         self.instance_id = "1"
-        self.dataflow_metadata = message.generate_metadata(self.data_type, self.sub_type, "json", "upload",
-                                                           "France", 43.599998, 1.43333)
+        self.dataflow_metadata = message.generate_metadata(self.data_type, self.sub_type, 1.0, "json",  "upload",
+                                                           "France", "Europe",43.599998, 1.43333, 2, 3, 4, "api-unitest")
 
     def test_get_types(self):
         self.assertIsNotNone(api.get_types(self.api_end_point, self.auth_headers, self.mec_id))
@@ -86,7 +86,7 @@ class APITestCase(unittest.TestCase):
         api.discover_sb_service(self.api_end_point, self.tile, self.service_name, self.auth_headers)
 
     def test_register(self):
-        api.register(self.api_end_point, self.dataflow_metadata, self.tile, self.auth_headers, x_user_infor=self.x_user_info['sub'])
+        api.register(self.api_end_point, self.dataflow_metadata, self.tile, self.auth_headers)
 
     def test_send_keep_alive(self):
         api.keep_alive_dataflow(self.api_end_point, self.dataflow_metadata, self.dataflow_id, self.auth_headers)

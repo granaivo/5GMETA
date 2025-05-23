@@ -1,7 +1,6 @@
-import json
-import string
 import unittest
-from  py5gmeta.common import message, database
+from py5gmeta.common import message, database
+
 
 class MessageTestCase(unittest.TestCase):
     def setUp(self):
@@ -27,13 +26,10 @@ class MessageTestCase(unittest.TestCase):
         print(database.to_json(meta_data_info))
 
     def test_generate_random_group_id(self):
-        pass
+        self.assertEqual(len(message.generate_random_group_id(16)), 16)
 
     def test_message_generator(self):
-        pass
-
-    def test_cits_messages_generator(self):
-        pass
+        message.messages_generator("cits", 1, self.body, "1", tile="1234567891010101")
 
     def image_cits_messages_generator(self):
         pass
