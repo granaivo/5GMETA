@@ -1,5 +1,3 @@
-from os import access
-
 from keycloak import KeycloakOpenID
 
 def configure_client(url, realm_name, client_id,  client_secret):

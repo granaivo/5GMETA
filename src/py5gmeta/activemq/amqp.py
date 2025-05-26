@@ -31,6 +31,40 @@ class Receiver(MessagingHandler):
         raise Exception(event.transport.condition)
 
 
+class VideoReceiver(Receiver):
+    def on_message(self, event):
+        global pts
+        global duration
+
+        if self._stopping:
+            return
+
+        print(event.message.properties['body_size'])
+        print(
+            "Received frame Content-Type: video/x-h264 of size {size}".format(size=event.message.properties['body_size']))
+        # Change this number (54) with the Id you wand to debug from logs
+        if (event.message.properties['sourceId'] == 54):
+            gst_buffer = Gst.Buffer.new_allocate(None, int(event.message.properties['body_size']), None)
+            gst_buffer.fill(0, event.message.body)
+
+            # set pts and duration to be able to record video, calculate fps
+            framerate = float(event.message.properties['dataSampleRate'])
+            duration = 10**9 / (int(framerate / 1.0))  # frame duration
+
+            pts += duration  # Increase pts by duration
+            gst_buffer.pts = pts
+            gst_buffer.duration = duration
+
+            # emit <push-buffer> event with Gst.Buffer
+            appsrc.emit("push-buffer", gst_buffer)
+
+        self._messages_actually_received += 1
+        #event.connection.close()
+        #self._stopping = True
+
+    def on_transport_error(self, event):
+        raise Exception(event.transport.condition)
+
 class Sender(MessagingHandler):
     def __init__(self, url, messages):
         super(Sender, self).__init__()
