@@ -26,8 +26,5 @@ class GeoTestCase(unittest.TestCase):
         self.assertEqual(geotile.get_country_from(self.latitude, self.longitude), 'Spain')  # add assertion here
 
 
-
-
-
 if __name__ == '__main__':
     unittest.main()

@@ -3,9 +3,6 @@ import unittest
 
 class DatabaseTestCase(unittest.TestCase):
 
-    def test_something(self):
-        self.assertEqual(True, False)  # add assertion here
-
     def test_insert_dataflow_localdb(self):
         pass
 

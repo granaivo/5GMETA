@@ -20,30 +20,31 @@ def delivery_report(err, msg):
 class KafkaTestCase(unittest.TestCase):
 
     def setUp(self):
-        self.kafka_host = "cloudplatform.francecentral.cloudapp.azure.com"
+        self.kafka_host = "192.168.49.2"
         self.kafka_port = "31090"
         self.admin_client = AdminClient({'bootstrap.servers': self.kafka_host + ':' + self.kafka_port})
         self.tile = "031333123201"
         self.instance_type = "small"  # small
-        self.platform_address = "cloudplatform.francecentral.cloudapp.azure.com"
+        self.platform_address = "192.168.49.2"
         self.bootstrap_port = "31090"
-        self.schema_registry_port = "443"
         self.platform_user = "5gmeta-platform"
         self.platform_password = "5gmeta-platform"
-        self.group_id = "group1"
+        self.group_id = "group10"
         self.topic = "5GMETA_1011_CITS_MEDIUM_34"
         self.new_topics = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [self.topic]]
-        self.registry_port = 443
+        self.registry_port = 31081
         self.consumer = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port, self.group_id, self.topic)
+        self.cits_consumer = prosumer.create_consumer(self.platform_address, self.bootstrap_port, self.registry_port,
+                                                 self.group_id, self.topic)
         self.consumer.subscribe([self.topic.upper()])
-        self.producer = Producer({'bootstrap.servers': 'cloudplatform.francecentral.cloudapp.azure.com:31090'})
+        self.producer = Producer({'bootstrap.servers': '192.168.49.2:31090'})
 
         print("Subscibed topics: " + str(self.topic))
         print("Running...")
 
         self.i = 0
         # Trigger any available delivery report callbacks from previous produce() calls
-        self.p.poll(1.0)
+        self.producer.poll(1.0)
 
     def tearDown(self):
         self.consumer.close()
@@ -69,12 +70,15 @@ class KafkaTestCase(unittest.TestCase):
 
     def test_consumer(self):
         self.consumer.subscribe([self.topic])
-        msg = self.consumer.poll(1.0)
+        msg = self.consumer.poll(10.0)
+        print(msg)
         print('Received message: {}'.format(msg.value().decode('utf-8')))
 
 
     def test_cits_consumer(self):
-        msg = self.consumer.poll(1.0)
+        self.cits_consumer.subscribe([self.topic])
+        msg = self.cits_consumer.poll(60.0)
+        print(msg)
         print("NEW MESSAGE")
         currentTime = time.time_ns() // 1_000_000
         sys.stderr.write('\n%% %s [%d] at offset %d with key %s:\n\n' %

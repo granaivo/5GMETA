@@ -5,7 +5,7 @@ from collections.abc import Iterable
 
 class KSQLMETATestCase(unittest.TestCase):
     def setUp(self):
-        self.client = KSQLAPI("https://cloudplatform.francecentral.cloudapp.azure.com/ksql/")
+        self.client = KSQLAPI("http://192.168.49.2:31088")
         self.data_type = "cits"
         self.name = "JMS_SourceCITS"
         self.activemq_url = "tcp://akkodismec.francecentral.cloudapp.azure.com:61616"
