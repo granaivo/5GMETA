@@ -1,4 +1,4 @@
-# The 5GMETA Plateform
+# The 5GMETA Platform
 
 ![5GMETA logo.](./5GMETA_logo.png)
 
